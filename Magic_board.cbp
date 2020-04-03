@@ -32,6 +32,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++14" />
+					<Add directory="D:/Dokumenty/Dysk google/C++ Component/SFML/SFML-2.5.1/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -47,8 +49,23 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="ball.cpp" />
+		<Unit filename="ball.h" />
+		<Unit filename="bonus.cpp" />
+		<Unit filename="bonus.h" />
+		<Unit filename="enemy.cpp" />
+		<Unit filename="enemy.h" />
+		<Unit filename="head_include.h" />
+		<Unit filename="level.cpp" />
+		<Unit filename="level.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
 		<Unit filename="openal32.dll" />
+		<Unit filename="player.cpp" />
+		<Unit filename="player.h" />
+		<Unit filename="score.cpp" />
+		<Unit filename="score.h" />
 		<Unit filename="sfml-audio-2.dll" />
 		<Unit filename="sfml-audio-d-2.dll" />
 		<Unit filename="sfml-graphics-2.dll" />
@@ -59,6 +76,8 @@
 		<Unit filename="sfml-system-d-2.dll" />
 		<Unit filename="sfml-window-2.dll" />
 		<Unit filename="sfml-window-d-2.dll" />
+		<Unit filename="text_ini..h" />
+		<Unit filename="text_ini.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
