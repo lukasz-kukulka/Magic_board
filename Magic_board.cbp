@@ -49,6 +49,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="animations.cpp" />
+		<Unit filename="animations.h" />
 		<Unit filename="ball.cpp" />
 		<Unit filename="ball.h" />
 		<Unit filename="bonus.cpp" />
@@ -61,7 +63,11 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />
+		<Unit filename="menu_credit.cpp" />
+		<Unit filename="menu_credit.h" />
 		<Unit filename="openal32.dll" />
+		<Unit filename="option_page.cpp" />
+		<Unit filename="option_page.h" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
 		<Unit filename="score.cpp" />

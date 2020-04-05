@@ -4,17 +4,19 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include "menu.h"
+#include "option_page.h"
 
-Menu::Menu(sf::Vector2u windowSize)
+
+
+Menu::Menu(sf::RenderWindow &window)
 {
     this->font.loadFromFile("Fonts/main_small.ttf");
     this->otama_font.loadFromFile("Fonts/otama.otf");
     this->backgroud.loadFromFile("Textures/background1.jpg");
-    this->window = windowSize;
     this->menu_option = 0;
-    this->y = window.y;
-    this->rec_size_x = window.x/8*3;
-    this->rec_size_y = window.y/20;
+    this->y = window.getSize().y;
+    this->rec_size_x = window.getSize().x/8*3;
+    this->rec_size_y = window.getSize().y/20;
     this->transparent_color = 255;
     this->base_menu_change = sf::Color(255, 255, 255, 128);
     this->base_menu_regular = sf::Color(255, 255, 255, 64);
@@ -24,6 +26,7 @@ Menu::Menu(sf::Vector2u windowSize)
 
     this->backgroud_menu.setTexture(backgroud);
     this->backgroud_menu.setPosition(0.0f, 0.0f);
+
 
 }
 Menu::~Menu(){}
@@ -101,6 +104,8 @@ void Menu::menu_base(sf::RenderWindow &window, sf::Vector2i mouse, int menu_opti
     this->exit.setOutlineThickness(new_game.getOutlineThickness());
     this->exit.setOutlineColor(black_menu);
     this->exit.setPosition(rec5.getPosition().x + (rec5.getGlobalBounds().width/2) - (exit.getGlobalBounds().width/2), window.getSize().y/3*2 + window.getSize().y/20*4);
+
+
 
   if(mouse.x > rec1.getPosition().x  && mouse.x < rec1.getPosition().x + rec1.getGlobalBounds().width &&
         mouse.y > rec1.getPosition().y  && mouse.y < rec1.getPosition().y - 6 + rec1.getGlobalBounds().height)
@@ -192,6 +197,13 @@ void Menu::menu_base(sf::RenderWindow &window, sf::Vector2i mouse, int menu_opti
           this->rec5.setPosition(window.getSize().x/2 - rec5.getGlobalBounds().width/2, window.getSize().y/3*2 + rec_size_y*4);
       }
 
+
+  if(mouse.x > rec3.getPosition().x  && mouse.x < rec3.getPosition().x + rec3.getGlobalBounds().width &&
+            mouse.y > rec3.getPosition().y  && mouse.y < rec3.getPosition().y - 6 + rec3.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                this->menu_option = 3;
+                menu_animation(window, mouse, menu_option);
+            }
   if(mouse.x > rec4.getPosition().x  && mouse.x < rec4.getPosition().x + rec4.getGlobalBounds().width &&
             mouse.y > rec4.getPosition().y  && mouse.y < rec4.getPosition().y - 6 + rec4.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
@@ -354,7 +366,7 @@ void Menu::menu_credits(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
           this->back_button.setPosition(window.getSize().x - back_button.getSize().x - 5, window.getSize().y - back_button.getSize().y - 5);
       }
 
-    y = y - 1;
+    y = y - 5;
     if(y <= - 1600)
     {
         y = window.getSize().y;
@@ -422,31 +434,39 @@ void Menu::menu_form_to_play(sf::RenderWindow &window, sf::Vector2i mouse, int m
 
 void Menu::menu_option_index(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
 {
+
     if(menu_option==0)
     {
         menu_base(window, mouse, menu_option);
     }
+
     else if(menu_option==1)
     {
 
     }
+
     else if(menu_option==2)
     {
 
     }
+
     else if(menu_option==3)
     {
-
+        //options_object.basic(window, mouse, menu_option);//
     }
+
     else if(menu_option==4)
     {
         menu_credits(window, mouse, menu_option);
     }
+
     else if(menu_option==5)
     {
         menu_exit(window, mouse, menu_option);
     }
 }
+
+
 
 void Menu::draw_menu(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
 {
@@ -472,4 +492,5 @@ void Menu::draw_menu(sf::RenderWindow &window, sf::Vector2i mouse, int menu_opti
         window.draw(editor);
         window.draw(screenplan);
         window.draw(project);
+
 }

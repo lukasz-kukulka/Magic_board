@@ -7,13 +7,14 @@
 
 1585508325 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\level.cpp
 
-1585875758 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.cpp
+1586056691 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.cpp
 	<iostream>
 	<conio.h>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	"menu.h"
+	"option_page.h"
 
 1525812018 d:\dokumenty\dysk google\c++ component\sfml\sfml-2.5.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -424,7 +425,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1585875744 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.h
+1586102129 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
@@ -437,10 +438,22 @@
 
 1585508463 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\text_ini.cpp
 
-1585864383 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\main.cpp
+1586102239 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	"menu.h"
+	"option_page.h"
+
+1585939307 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\animations.cpp
+
+1585973799 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu_credit.cpp
+
+1586100862 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\option_page.cpp
+	"option_page.h"
+
+1586102363 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\option_page.h
+	<iostream>
+	<SFML/Graphics.hpp>
 
