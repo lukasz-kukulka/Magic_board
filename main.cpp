@@ -5,14 +5,16 @@
 #include "menu.h"
 #include "option_page.h"
 
+
+
 int main()
 {
-    int width = 1200, height = 900, menu_option=0;
+    int width = 1280, height = 1024, menu_option=0;
     auto mode_screen = sf::Style::Default;
     sf::RenderWindow window(sf::VideoMode(width, height), "Magic Board", mode_screen);
     window.setFramerateLimit(60);
-    Option_page options_object(window);
-
+    sf::Vector2i mouse = sf::Mouse::getPosition(window);
+    Option_page options_object(window, mouse, menu_option);
     Menu menu(window);
 
 
@@ -24,8 +26,9 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        std::cout<<"MAIN - "<<menu_option<< std::endl;
         sf::Vector2i mouse = sf::Mouse::getPosition(window);
-        menu.menu_option_index(window, mouse, menu_option);
+        menu.menu_option_index(window, mouse, menu_option, options_object);
         menu_option = menu.menu_option;
 
         window.clear();

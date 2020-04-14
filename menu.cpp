@@ -8,6 +8,7 @@
 
 
 
+
 Menu::Menu(sf::RenderWindow &window)
 {
     this->font.loadFromFile("Fonts/main_small.ttf");
@@ -31,7 +32,7 @@ Menu::Menu(sf::RenderWindow &window)
 }
 Menu::~Menu(){}
 
-void Menu::menu_base(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
+void Menu::menu_base(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option, Option_page &options_object)
 {
     float scale_x = 1.15, scale_y = 1.05, scale_regular = 1;
     int out_line = 2;
@@ -203,6 +204,7 @@ void Menu::menu_base(sf::RenderWindow &window, sf::Vector2i mouse, int menu_opti
             {
                 this->menu_option = 3;
                 menu_animation(window, mouse, menu_option);
+                options_object.background_animation(window, mouse, menu_option);
             }
   if(mouse.x > rec4.getPosition().x  && mouse.x < rec4.getPosition().x + rec4.getGlobalBounds().width &&
             mouse.y > rec4.getPosition().y  && mouse.y < rec4.getPosition().y - 6 + rec4.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -294,12 +296,8 @@ void Menu::menu_animation(sf::RenderWindow &window, sf::Vector2i mouse, int menu
                                 this->rec5.setPosition(window.getSize().x/2 - rec5.getGlobalBounds().width/2, window.getSize().y/3*2 + rec_size_y*4);
                             }
 
-                            std::cout<<"petla--------------------------------------------"<<menu_option<<std::endl;
                             clock.restart();
                             a--;
-                            window.clear();
-                            draw_menu(window, mouse, menu_option);
-                            window.display();
                             if(a<=0)
                             {
                                 this->new_game.setCharacterSize(0);
@@ -312,8 +310,14 @@ void Menu::menu_animation(sf::RenderWindow &window, sf::Vector2i mouse, int menu
                                 this->rec3.setScale(0.0, 0.0);
                                 this->rec2.setScale(0.0, 0.0);
                                 this->rec1.setScale(0.0, 0.0);
+                                window.clear();
+                                draw_menu(window, mouse, menu_option);
+                                window.display();
                                 break;
                             }
+                            window.clear();
+                            draw_menu(window, mouse, menu_option);
+                            window.display();
                         }
                 }
 
@@ -343,7 +347,7 @@ void Menu::menu_credits(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
     this->back_button.setFillColor(sf::Color(base_menu_regular));
 
     this->back_text.setFont(font);
-    this->back_text.setCharacterSize(30);
+    this->back_text.setCharacterSize(window.getSize().x/40);
     this->back_text.setFillColor(green_menu);
     this->back_text.setString("BACK TO MENU");
     this->back_text.setOutlineThickness(new_game.getOutlineThickness());
@@ -373,7 +377,7 @@ void Menu::menu_credits(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
     }
 
     this->lukasz_kukulka.setFont(otama_font);
-    this->lukasz_kukulka.setCharacterSize(120);
+    this->lukasz_kukulka.setCharacterSize(window.getSize().x/10);
     this->lukasz_kukulka.setFillColor(sf::Color(0, 170, 0));
     this->lukasz_kukulka.setString("Lukasz Kukulka");
     this->lukasz_kukulka.setOutlineThickness(2);
@@ -381,22 +385,22 @@ void Menu::menu_credits(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
     this->lukasz_kukulka.setPosition(window.getSize().x/2 - lukasz_kukulka.getGlobalBounds().width/2, y);
     director = lukasz_copy1 = lukasz_copy2 = lukasz_copy3 = lukasz_kukulka;
 
-    this->director.setCharacterSize(60);
+    this->director.setCharacterSize(window.getSize().x/20);
     this->director.setString("DIRECTOR");
     this->director.setPosition(window.getSize().x/2 - director.getGlobalBounds().width/2, y - lukasz_kukulka.getGlobalBounds().height);
     screenplan = project = editor = director;
 
     this->lukasz_copy1.setPosition(window.getSize().x/2 - lukasz_kukulka.getGlobalBounds().width/2, y + 500);
-    this->screenplan.setString("SCREENPLAN");
-    this->screenplan.setPosition(window.getSize().x/2 - director.getGlobalBounds().width/2, y - lukasz_copy1.getGlobalBounds().height + 500);
+    this->screenplan.setString("SCREEN PLAN");
+    this->screenplan.setPosition(window.getSize().x/2 - screenplan.getGlobalBounds().width/2, y - lukasz_copy1.getGlobalBounds().height + 500);
 
     this->lukasz_copy2.setPosition(window.getSize().x/2 - lukasz_kukulka.getGlobalBounds().width/2, y + 1000);
     this->project.setString("PROJECT");
-    this->project.setPosition(window.getSize().x/2 - director.getGlobalBounds().width/2, y - lukasz_copy2.getGlobalBounds().height + 1000);
+    this->project.setPosition(window.getSize().x/2 - project.getGlobalBounds().width/2, y - lukasz_copy2.getGlobalBounds().height + 1000);
 
     this->lukasz_copy3.setPosition(window.getSize().x/2 - lukasz_kukulka.getGlobalBounds().width/2, y + 1500);
     this->editor.setString("EDITOR");
-    this->editor.setPosition(window.getSize().x/2 - director.getGlobalBounds().width/2, y - lukasz_copy3.getGlobalBounds().height + 1500);
+    this->editor.setPosition(window.getSize().x/2 - editor.getGlobalBounds().width/2, y - lukasz_copy3.getGlobalBounds().height + 1500);
 
 
 
@@ -432,12 +436,12 @@ void Menu::menu_form_to_play(sf::RenderWindow &window, sf::Vector2i mouse, int m
 
 }
 
-void Menu::menu_option_index(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
+void Menu::menu_option_index(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option, Option_page &options_object)
 {
 
     if(menu_option==0)
     {
-        menu_base(window, mouse, menu_option);
+        menu_base(window, mouse, menu_option, options_object);
     }
 
     else if(menu_option==1)
@@ -452,7 +456,10 @@ void Menu::menu_option_index(sf::RenderWindow &window, sf::Vector2i mouse, int m
 
     else if(menu_option==3)
     {
-        //options_object.basic(window, mouse, menu_option);//
+        //options_object.basic(window, mouse, menu_option);
+        std::cout<<"MENU FUCTION---------------------------------------------------------------------BEFORE"<<menu_option<< std::endl;
+        this->menu_option = options_object.basic(window, mouse, menu_option);
+        std::cout<<"MENU FUCTION---------------------------------------------------------------------AFTER"<<menu_option<< std::endl;
     }
 
     else if(menu_option==4)

@@ -5,6 +5,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <vector>
+#include "option_page.h"
 
 class Menu
 {
@@ -29,7 +30,7 @@ public:
 
 int menu_option;
 
-void menu_base(sf::RenderWindow &window, sf::Vector2i, int);
+void menu_base(sf::RenderWindow &window, sf::Vector2i, int, Option_page &options_object);
 void menu_animation(sf::RenderWindow &window, sf::Vector2i, int);
 void menu_newGame(sf::RenderWindow &window, sf::Vector2i, int);
 void menu_highScore(sf::RenderWindow &window, sf::Vector2i, int);
@@ -37,9 +38,8 @@ void menu_options(sf::RenderWindow &window, sf::Vector2i, int);
 void menu_credits(sf::RenderWindow &window, sf::Vector2i, int);
 void menu_exit(sf::RenderWindow &window, sf::Vector2i, int);
 void menu_form_to_play(sf::RenderWindow &window, sf::Vector2i, int);
-void menu_option_index(sf::RenderWindow &window, sf::Vector2i, int);
+void menu_option_index(sf::RenderWindow &window, sf::Vector2i, int, Option_page &options_object);
 void draw_menu(sf::RenderWindow &window, sf::Vector2i, int);
-
 
 };
 #endif
