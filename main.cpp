@@ -20,7 +20,7 @@ int main()
     if(setings_tab[2] == 2)   {mode_screen = sf::Style::Default;}                                                   //SETTINGS SCREEN WINDOW MODE
     else if(setings_tab[2] == 1)   {mode_screen = sf::Style::Fullscreen;}                                           //SETTINGS SCREEN FULLSCREEN MODE
 
-    sf::RenderWindow window(sf::VideoMode(setings_tab[0], setings_tab[1]), "Magic Board", mode_screen);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Magic Board", mode_screen);
     window.setFramerateLimit(60);
     sf::Vector2i mouse = sf::Mouse::getPosition(window);
     Option_page options_class(window, mouse, menu_option);
@@ -39,17 +39,11 @@ int main()
 
         window.clear();
 
-        interface.draw_interface(window);
-
-
-
-
-
-
-
 //        menu.draw_menu(window, mouse, menu_option, options_class);
 //        menu_option = menu.menu_option_if(window, mouse, menu_option, options_class);
 //        options_class.draw_option_page(window);
+
+        interface.draw_interface(window);
 
         window.display();
     }
