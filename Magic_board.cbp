@@ -49,8 +49,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="backgroud_game.cpp" />
+		<Unit filename="backgroud_game.h" />
 		<Unit filename="credits.cpp" />
 		<Unit filename="credits.h" />
+		<Unit filename="interface.cpp" />
+		<Unit filename="interface.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />
