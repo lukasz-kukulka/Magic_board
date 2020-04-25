@@ -1,13 +1,11 @@
 #include "option_page.h"
- extern int menu_option;
+#include <windows.h>
 
 Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
+                                :save_setings()
 {
-    //START TEST
-    this->test_size = 0;
-
-    //END TEST
     this->otama_font.loadFromFile("Fonts/otama.otf");
+    this->nice_font.loadFromFile("Fonts/Honor_med.ttf");
     this->center_x = window.getSize().x/2;
     this->center_y = window.getSize().y/2;
     this->size_block = 32;
@@ -42,7 +40,26 @@ Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
     this->button_null.loadFromFile("Textures/button_null.png");
     this->button_true.loadFromFile("Textures/button_true.png");
 
-//----------------------------------------------------------------------------------BACKGROUND BLOCKS INI---------------------------------------------------------------------
+    settings_ini(window);
+
+    this->position_nice_font_x = end_draw_x;
+    this->position_nice_font_y = save_button.getPosition().y;
+    this->annoucment = 0;
+//--------------------------------------------------------------------RESET SETINGS-------------------------------------------------------------------------------------
+
+    reset_object(window, mouse, menu_option);
+
+}
+
+void Option_page::settings_ini(sf::RenderWindow &window)
+{
+    //---------------------------------------------------------------------------SETTINGS LOAD FROM FILE-------------------------------------------------------------------------
+    Save_load load_seting_options;
+    for(int i = 0; i < 5; i++)
+        {
+            this->settings_tab[i] = load_seting_options.load_setings(i);
+        }
+    //----------------------------------------------------------------------------------BACKGROUND BLOCKS INI---------------------------------------------------------------------
 
     this->block.setColor(sf::Color(180, 180, 180, 240));
     this->block.setPosition(start_draw_x, start_draw_y);
@@ -91,15 +108,33 @@ Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
     this->screen_resolution1920x1080.setOutlineColor(sf::Color(0, 0, 0));
     this->screen_resolution1920x1080.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3*2 - screen_resolution1920x1080.getGlobalBounds().width/2, screen_resolution800x600.getPosition().y);
 
-    this->button800x600_true.setTexture(button_true);
+    if(settings_tab[0] == 800)
+        {
+            this->button800x600_true.setTexture(button_true);
+            this->button1280x1024_true.setTexture(button_null);
+            this->button1920x1080_true.setTexture(button_null);
+        }
+    else if (settings_tab[0] == 1280)
+        {
+            this->button800x600_true.setTexture(button_null);
+            this->button1280x1024_true.setTexture(button_true);
+            this->button1920x1080_true.setTexture(button_null);
+        }
+    else if (settings_tab[0] == 1920)
+        {
+            this->button800x600_true.setTexture(button_null);
+            this->button1280x1024_true.setTexture(button_null);
+            this->button1920x1080_true.setTexture(button_true);
+        }
+
     this->button800x600_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->button800x600_true.setPosition(screen_resolution800x600.getPosition().x - 5 - button800x600_true.getGlobalBounds().width, screen_resolution800x600.getPosition().y + button800x600_true.getGlobalBounds().height);
 
-    this->button1280x1024_true.setTexture(button_null);
+
     this->button1280x1024_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->button1280x1024_true.setPosition(screen_resolution1280x1024.getPosition().x - 5 - button1280x1024_true.getGlobalBounds().width, screen_resolution1280x1024.getPosition().y + button1280x1024_true.getGlobalBounds().height);
 
-    this->button1920x1080_true.setTexture(button_null);
+
     this->button1920x1080_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->button1920x1080_true.setPosition(screen_resolution1920x1080.getPosition().x - 5 - button1920x1080_true.getGlobalBounds().width, screen_resolution1920x1080.getPosition().y + button1920x1080_true.getGlobalBounds().height);
 
@@ -128,11 +163,21 @@ Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
     this->window_option.setOutlineColor(sf::Color(0, 0, 0));
     this->window_option.setPosition(start_draw_x + width_screen - (width_screen/2)/2 - window_option.getGlobalBounds().width/2, mode_screen.getPosition().y + window.getSize().y/60 + mode_screen.getGlobalBounds().height);
 
-    this->mode_full.setTexture(button_true);
+    if(settings_tab[2] == 1)
+        {
+            this->mode_full.setTexture(button_true);
+            this->mode_window.setTexture(button_null);
+        }
+    else if (settings_tab[2] == 2)
+        {
+            this->mode_full.setTexture(button_null);
+            this->mode_window.setTexture(button_true);
+        }
+
     this->mode_full.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->mode_full.setPosition(full_option.getPosition().x - 5 - mode_full.getGlobalBounds().width, full_option.getPosition().y + mode_full.getGlobalBounds().height);
 
-    this->mode_window.setTexture(button_null);
+
     this->mode_window.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->mode_window.setPosition(window_option.getPosition().x - 5 - mode_window.getGlobalBounds().width, window_option.getPosition().y + mode_window.getGlobalBounds().height);
 
@@ -170,15 +215,33 @@ Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
     this->high_score_no_5.setOutlineColor(sf::Color(0, 0, 0));
     this->high_score_no_5.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3*2 - high_score_no_5.getGlobalBounds().width/2, high_score.getPosition().y + window.getSize().y/60 + high_score.getGlobalBounds().height);
 
-    this->score_1.setTexture(button_true);
+    if(settings_tab[3] == 1)
+        {
+            this->score_1.setTexture(button_true);
+            this->score_3.setTexture(button_null);
+            this->score_5.setTexture(button_null);
+        }
+    else if (settings_tab[3] == 3)
+        {
+            this->score_1.setTexture(button_null);
+            this->score_3.setTexture(button_true);
+            this->score_5.setTexture(button_null);
+        }
+    else if (settings_tab[3] == 5)
+        {
+            this->score_1.setTexture(button_null);
+            this->score_3.setTexture(button_null);
+            this->score_5.setTexture(button_true);
+        }
+
     this->score_1.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->score_1.setPosition(high_score_no_1.getPosition().x - 5 - score_1.getGlobalBounds().width, high_score_no_1.getPosition().y + score_1.getGlobalBounds().height);
 
-    this->score_3.setTexture(button_null);
+
     this->score_3.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->score_3.setPosition(high_score_no_3.getPosition().x - 5 - score_3.getGlobalBounds().width, high_score_no_3.getPosition().y + score_3.getGlobalBounds().height);
 
-    this->score_5.setTexture(button_null);
+
     this->score_5.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->score_5.setPosition(high_score_no_5.getPosition().x - 5 - score_5.getGlobalBounds().width, high_score_no_5.getPosition().y + score_5.getGlobalBounds().height);
 
@@ -195,15 +258,31 @@ Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
     this->board_part.setPosition(start_draw_x + (width_screen/3)/2 - board_part.getGlobalBounds().width*5, color_board.getPosition().y + window.getSize().y/60 + board_part.getGlobalBounds().height + color_board.getGlobalBounds().height );
     this->board_part.setScale(0.00105*window.getSize().x, 0.00105*window.getSize().x);
 
-    this->option_board_red.setTexture(button_true);
+    if(settings_tab[4] == 1)
+        {
+            this->option_board_red.setTexture(button_true);
+            this->option_board_green.setTexture(button_null);
+            this->option_board_yellow.setTexture(button_null);
+        }
+    else if (settings_tab[4] == 2)
+        {
+            this->option_board_red.setTexture(button_null);
+            this->option_board_green.setTexture(button_true);
+            this->option_board_yellow.setTexture(button_null);
+        }
+    else if (settings_tab[4] == 3)
+        {
+            this->option_board_red.setTexture(button_null);
+            this->option_board_green.setTexture(button_null);
+            this->option_board_yellow.setTexture(button_true);
+        }
+
     this->option_board_red.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->option_board_red.setPosition(board_part.getPosition().x - 5 - board_part.getGlobalBounds().width*2, board_part.getPosition().y);
 
-    this->option_board_green.setTexture(button_null);
     this->option_board_green.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->option_board_green.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3 - board_part.getGlobalBounds().width*8, option_board_red.getPosition().y);
 
-    this->option_board_yellow.setTexture(button_null);
     this->option_board_yellow.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->option_board_yellow.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3*2 - board_part.getGlobalBounds().width*8, option_board_red.getPosition().y);
 
@@ -238,20 +317,15 @@ Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
     this->save_text.setOutlineColor(sf::Color(0, 0, 0));
     this->save_text.setPosition(save_button.getPosition().x + (save_button.getGlobalBounds().width/2) - (save_text.getGlobalBounds().width/2),
                                 save_button.getPosition().y + save_button.getGlobalBounds().height/2 - save_text.getGlobalBounds().height/2 - save_text.getCharacterSize()/3);
-
-
-//--------------------------------------------------------------------RESET SETINGS-------------------------------------------------------------------------------------
-
-    reset_object(window, mouse, menu_option);
-
 }
-
-
 
 Option_page::~Option_page(){}
 
 int Option_page::basic(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
 {
+
+
+    background_animation(window, mouse, menu_option);
     this->menu_option_menu_page = 3;
     this->line1.setSize(sf::Vector2f(width_screen - 5, 2));
     this->line2.setSize(sf::Vector2f(width_screen - 5, 2));
@@ -281,6 +355,10 @@ int Option_page::basic(sf::RenderWindow &window, sf::Vector2i mouse, int menu_op
     this->score_1.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->score_3.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->score_5.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+
+    this->option_board_red.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+    this->option_board_green.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+    this->option_board_yellow.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
 
     this->color_board.setCharacterSize(window.getSize().x/35 - 5);
 
@@ -313,13 +391,11 @@ int Option_page::basic(sf::RenderWindow &window, sf::Vector2i mouse, int menu_op
     this->save_button.setOutlineThickness(2);
     this->save_text.setOutlineThickness(2);
 
-
-
     system(window, mouse, menu_option);
-    std::cout<<"OPTION PAGE FUCTION---------------------------------------------------------------------BEFORE"<<menu_option_menu_page<< std::endl;
     return menu_option_menu_page;
 }
-void Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
+
+int Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
 {
     if(mouse.x > back_button.getPosition().x  && mouse.x < back_button.getPosition().x + back_button.getGlobalBounds().width &&
         mouse.y > back_button.getPosition().y  && mouse.y < back_button.getPosition().y - 6 + back_button.getGlobalBounds().height)
@@ -364,9 +440,15 @@ void Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
             mouse.y > back_button.getPosition().y  && mouse.y < back_button.getPosition().y - 6 + back_button.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
                 this->menu_option_menu_page = 0;
-                std::cout<<"OPTIONS PAGE FUCTION---------------------------------------------------------------------BEFORE"<<menu_option<< std::endl;
                 reset_object(window, mouse, menu_option);
         }
+
+    if(mouse.x > save_button.getPosition().x  && mouse.x < save_button.getPosition().x + save_button.getGlobalBounds().width &&
+            mouse.y > save_button.getPosition().y  && mouse.y < save_button.getPosition().y - 6 + save_button.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left)||annoucment>0)
+        {
+            annoucment = save_setings.save_setings(window, settings_tab, &nice_font, position_nice_font_x, position_nice_font_y, annoucment);
+        }
+
 
 
 
@@ -376,6 +458,8 @@ void Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
             this->button800x600_true.setTexture(button_true);
             this->button1280x1024_true.setTexture(button_null);
             this->button1920x1080_true.setTexture(button_null);
+            this->settings_tab[0] = 800;
+            this->settings_tab[1] = 600;
         }
 
     if(mouse.x > button1280x1024_true.getPosition().x  && mouse.x < button1280x1024_true.getPosition().x + button1280x1024_true.getGlobalBounds().width &&
@@ -384,6 +468,8 @@ void Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
             this->button800x600_true.setTexture(button_null);
             this->button1280x1024_true.setTexture(button_true);
             this->button1920x1080_true.setTexture(button_null);
+            this->settings_tab[0] = 1280;
+            this->settings_tab[1] = 1024;
         }
 
     if(mouse.x > button1920x1080_true.getPosition().x  && mouse.x < button1920x1080_true.getPosition().x + button1920x1080_true.getGlobalBounds().width &&
@@ -392,6 +478,8 @@ void Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
             this->button800x600_true.setTexture(button_null);
             this->button1280x1024_true.setTexture(button_null);
             this->button1920x1080_true.setTexture(button_true);
+            this->settings_tab[0] = 1920;
+            this->settings_tab[1] = 1080;
         }
 
     if(mouse.x > mode_full.getPosition().x  && mouse.x < mode_full.getPosition().x + mode_full.getGlobalBounds().width &&
@@ -399,6 +487,7 @@ void Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
         {
             this->mode_full.setTexture(button_true);
             this->mode_window.setTexture(button_null);
+            this->settings_tab[2] = 1;
         }
 
     if(mouse.x > mode_window.getPosition().x  && mouse.x < mode_window.getPosition().x + mode_window.getGlobalBounds().width &&
@@ -406,12 +495,64 @@ void Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
         {
             this->mode_full.setTexture(button_null);
             this->mode_window.setTexture(button_true);
+            this->settings_tab[2] = 2;
         }
 
+    if(mouse.x > score_1.getPosition().x  && mouse.x < score_1.getPosition().x + score_1.getGlobalBounds().width &&
+            mouse.y > score_1.getPosition().y  && mouse.y < score_1.getPosition().y + score_1.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            this->score_1.setTexture(button_true);
+            this->score_3.setTexture(button_null);
+            this->score_5.setTexture(button_null);
+            this->settings_tab[3] = 1;
+        }
 
+    if(mouse.x > score_3.getPosition().x  && mouse.x < score_3.getPosition().x + score_3.getGlobalBounds().width &&
+            mouse.y > score_3.getPosition().y  && mouse.y < score_3.getPosition().y + score_3.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            this->score_1.setTexture(button_null);
+            this->score_3.setTexture(button_true);
+            this->score_5.setTexture(button_null);
+            this->settings_tab[3] = 3;
+        }
+
+    if(mouse.x > score_5.getPosition().x  && mouse.x < score_5.getPosition().x + score_5.getGlobalBounds().width &&
+            mouse.y > score_5.getPosition().y  && mouse.y < score_5.getPosition().y + score_5.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            this->score_1.setTexture(button_null);
+            this->score_3.setTexture(button_null);
+            this->score_5.setTexture(button_true);
+            this->settings_tab[3] = 5;
+        }
+
+    if(mouse.x > option_board_red.getPosition().x  && mouse.x < option_board_red.getPosition().x + option_board_red.getGlobalBounds().width &&
+            mouse.y > option_board_red.getPosition().y  && mouse.y < option_board_red.getPosition().y + option_board_red.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            this->option_board_red.setTexture(button_true);
+            this->option_board_green.setTexture(button_null);
+            this->option_board_yellow.setTexture(button_null);
+            this->settings_tab[4] = 1;
+        }
+
+    if(mouse.x > option_board_green.getPosition().x  && mouse.x < option_board_green.getPosition().x + option_board_green.getGlobalBounds().width &&
+            mouse.y > option_board_green.getPosition().y  && mouse.y < option_board_green.getPosition().y + option_board_green.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            this->option_board_red.setTexture(button_null);
+            this->option_board_green.setTexture(button_true);
+            this->option_board_yellow.setTexture(button_null);
+            this->settings_tab[4] = 2;
+        }
+
+    if(mouse.x > option_board_yellow.getPosition().x  && mouse.x < option_board_yellow.getPosition().x + option_board_yellow.getGlobalBounds().width &&
+            mouse.y > option_board_yellow.getPosition().y  && mouse.y < option_board_yellow.getPosition().y + option_board_yellow.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            this->option_board_red.setTexture(button_null);
+            this->option_board_green.setTexture(button_null);
+            this->option_board_yellow.setTexture(button_true);
+            this->settings_tab[4] = 3;
+        }
 
 }
-
 
 void Option_page::board_load(sf::RenderWindow &window, sf::Vector2i mouse, int menu_option)
 {
@@ -501,7 +642,6 @@ void Option_page::background_animation(sf::RenderWindow &window, sf::Vector2i mo
                             else if(i+1 >= no_blocks_x && j == 0)
                                 {
                                     this->block.setRotation(90);
-                                    //this->block.setColor(sf::Color(89, 86, 82, 255));
                                     this->block.setTexture(block_texture_corner);
                                 }
 
@@ -672,5 +812,5 @@ void Option_page::draw_option_page(sf::RenderWindow &window)
         }
     }
     }
-
+    save_setings.draw_save_load(window);
 }

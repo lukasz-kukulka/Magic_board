@@ -7,14 +7,13 @@
 
 1585508325 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\level.cpp
 
-1586829092 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.cpp
+1587782173 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.cpp
 	<iostream>
 	<conio.h>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	"menu.h"
-	"option_page.h"
 
 1525812018 d:\dokumenty\dysk google\c++ component\sfml\sfml-2.5.1\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -425,36 +424,103 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1586745736 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.h
+1587782173 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	<vector>
 	"option_page.h"
+	"menu_button.h"
+	"credits.h"
+	"save_load.h"
 
 1585508201 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\player.cpp
 
-1586823626 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\score.cpp
+1587776618 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\score.cpp
+	"score.h"
 
 1585508463 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\text_ini.cpp
 
-1586829014 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\main.cpp
+1587782384 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	"menu.h"
 	"option_page.h"
+	"menu_button.h"
+	"save_load.h"
+	"interface.h"
 
 1585939307 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\animations.cpp
 
 1585973799 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu_credit.cpp
 
-1586829300 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\option_page.cpp
+1587778395 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\option_page.cpp
 	"option_page.h"
+	<windows.h>
 
-1586824574 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\option_page.h
+1587778395 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\option_page.h
 	<iostream>
 	<SFML/Graphics.hpp>
+	"save_load.h"
+
+1586926622 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\board.cpp
+
+1586833632 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\textures.cpp
+
+1587778525 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu_button.cpp
+	"menu_button.h"
+	<windows.h>
+
+1587778525 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu_button.h
+	<iostream>
+	<SFML/Graphics.hpp>
+
+1587662917 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\credits.cpp
+	"credits.h"
+	<iostream>
+
+1587778525 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\credits.h
+	<SFML/Graphics.hpp>
+
+1587519629 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\buttons.h
+	<SFML/Graphics.hpp>
+
+1587519610 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\buttons.cpp
+	"buttons.h"
+
+1587778395 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\save_load.cpp
+	"save_load.h"
+	<fstream>
+	<windows.h>
+
+1587775852 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\save_load.h
+	<iostream>
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	"score.h"
+
+1587778395 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\score.h
+	<iostream>
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+
+1587782173 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\backgroud_game.cpp
+	"backgroud_game.h"
+
+1587781343 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\backgroud_game.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+
+1587782421 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\interface.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
 

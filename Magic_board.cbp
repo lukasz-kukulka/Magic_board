@@ -49,27 +49,18 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="animations.cpp" />
-		<Unit filename="animations.h" />
-		<Unit filename="ball.cpp" />
-		<Unit filename="ball.h" />
-		<Unit filename="bonus.cpp" />
-		<Unit filename="bonus.h" />
-		<Unit filename="enemy.cpp" />
-		<Unit filename="enemy.h" />
-		<Unit filename="head_include.h" />
-		<Unit filename="level.cpp" />
-		<Unit filename="level.h" />
+		<Unit filename="credits.cpp" />
+		<Unit filename="credits.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />
-		<Unit filename="menu_credit.cpp" />
-		<Unit filename="menu_credit.h" />
+		<Unit filename="menu_button.cpp" />
+		<Unit filename="menu_button.h" />
 		<Unit filename="openal32.dll" />
 		<Unit filename="option_page.cpp" />
 		<Unit filename="option_page.h" />
-		<Unit filename="player.cpp" />
-		<Unit filename="player.h" />
+		<Unit filename="save_load.cpp" />
+		<Unit filename="save_load.h" />
 		<Unit filename="score.cpp" />
 		<Unit filename="score.h" />
 		<Unit filename="sfml-audio-2.dll" />
@@ -82,8 +73,6 @@
 		<Unit filename="sfml-system-d-2.dll" />
 		<Unit filename="sfml-window-2.dll" />
 		<Unit filename="sfml-window-d-2.dll" />
-		<Unit filename="text_ini..h" />
-		<Unit filename="text_ini.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
