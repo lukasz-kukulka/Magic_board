@@ -20,7 +20,7 @@ int main()
     if(setings_tab[2] == 2)   {mode_screen = sf::Style::Default;}                                                   //SETTINGS SCREEN WINDOW MODE
     else if(setings_tab[2] == 1)   {mode_screen = sf::Style::Fullscreen;}                                           //SETTINGS SCREEN FULLSCREEN MODE
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Magic Board", mode_screen);
+    sf::RenderWindow window(sf::VideoMode(1800, 900), "Magic Board", mode_screen);
     window.setFramerateLimit(60);
     sf::Vector2i mouse = sf::Mouse::getPosition(window);
     Option_page options_class(window, mouse, menu_option);

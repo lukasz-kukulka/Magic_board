@@ -12,7 +12,7 @@ Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
     this->start_draw_x = (center_x % size_block) + (size_block*3);
     this->end_draw_x = window.getSize().x - ((center_x % size_block) + (size_block*3));
     this->start_draw_y = (center_y % size_block) + (size_block*3);
-    this->end_draw_y = window.getSize().y - ((center_y % size_block) + (size_block*3));;
+    this->end_draw_y = window.getSize().y - ((center_y % size_block) + (size_block*3));
     this->width_screen = window.getSize().x - ((center_x % size_block) + (size_block*3)*2);
     this->height_screen = window.getSize().y - ((center_y % size_block) + (size_block*3)*2);
     this->no_blocks_x = width_screen/size_block;
