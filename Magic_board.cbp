@@ -51,8 +51,12 @@
 		</Compiler>
 		<Unit filename="backgroud_game.cpp" />
 		<Unit filename="backgroud_game.h" />
+		<Unit filename="boards.cpp" />
+		<Unit filename="boards.h" />
 		<Unit filename="credits.cpp" />
 		<Unit filename="credits.h" />
+		<Unit filename="game_objects_ini.cpp" />
+		<Unit filename="game_objects_ini.h" />
 		<Unit filename="interface.cpp" />
 		<Unit filename="interface.h" />
 		<Unit filename="main.cpp" />

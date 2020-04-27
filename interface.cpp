@@ -24,27 +24,10 @@ Interface::Interface(sf::RenderWindow &window)
     this->center_x = window.getSize().x/2;
     this->center_y = window.getSize().y/2;
     this->size_block = 32;
-    if(window.getSize().x/size_block !=0)
-        {
-            this->start_draw_x = (center_x % size_block) + (size_block*2);
-            this->end_draw_x = window.getSize().x - ((center_x % size_block) + (size_block*3));
-            this->start_draw_y = (center_y % size_block) + (size_block*2);
-            this->end_draw_y = window.getSize().y - ((center_y % size_block) + (size_block*2));
-        }
-    else
-        {
-            this->start_draw_x = (center_x % size_block) + (size_block*2);
-            this->end_draw_x = window.getSize().x - ((center_x % size_block) + (size_block*3));
-            this->start_draw_y = (center_y % size_block) + (size_block*2);
-            this->end_draw_y = window.getSize().y - ((center_y % size_block) + (size_block*3));
-        }
-
-
-
-    this->width_screen = window.getSize().x - ((center_x % size_block) + (size_block*3)*2);
-    this->height_screen = window.getSize().y - ((center_y % size_block) + (size_block*3)*2);
-    this->no_blocks_x = width_screen/size_block;
-    this->no_blocks_y = height_screen/size_block;
+    this->start_draw_x = (center_x % size_block) + (size_block*2);
+    this->end_draw_x = window.getSize().x - ((center_x % size_block) + (size_block*3));
+    this->start_draw_y = (center_y % size_block) + (size_block*2);
+    this->end_draw_y = window.getSize().y - ((center_y % size_block) + (size_block*2));
     this->check_size_index = (window.getSize().x/250 + 2) * 32 * 3 + 74*2 + 42*2 + 200;
 
     for(int j = start_draw_y; j <= window.getSize().y + 32; j = j + 32)
@@ -121,12 +104,6 @@ Interface::Interface(sf::RenderWindow &window)
                 quads.push_back(Backgroung_game(&board_block, (window.getSize().x - 116 - window.getSize().x/8*7 - 22)/2 + window.getSize().x/8*7, 0));
             }
     }
-
-
-
-
-
-
 }
 
 Interface:: ~Interface(){}

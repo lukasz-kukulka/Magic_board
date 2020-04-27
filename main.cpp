@@ -7,6 +7,7 @@
 #include "menu_button.h"
 #include "save_load.h"
 #include "interface.h"
+#include "game_objects_ini.h"
 
 
 
@@ -20,12 +21,13 @@ int main()
     if(setings_tab[2] == 2)   {mode_screen = sf::Style::Default;}                                                   //SETTINGS SCREEN WINDOW MODE
     else if(setings_tab[2] == 1)   {mode_screen = sf::Style::Fullscreen;}                                           //SETTINGS SCREEN FULLSCREEN MODE
 
-    sf::RenderWindow window(sf::VideoMode(1800, 900), "Magic Board", mode_screen);
+    sf::RenderWindow window(sf::VideoMode(1800, 1000), "Magic Board", mode_screen);
     window.setFramerateLimit(60);
     sf::Vector2i mouse = sf::Mouse::getPosition(window);
     Option_page options_class(window, mouse, menu_option);
     Menu menu(window, mouse, menu_option, options_class);
     Interface interface(window);
+    Game_objects_ini game_objects_ini(window);
 
     while (window.isOpen())
     {
@@ -34,6 +36,17 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (event.type == sf::Event::KeyPressed)
+                {
+                    if (event.key.code == sf::Keyboard::A)
+                    {
+                        game_objects_ini.board_move_left(window);
+                    }
+                    if (event.key.code == sf::Keyboard::D)
+                    {
+                        game_objects_ini.board_move_right(window);
+                    }
+                }
         }
         sf::Vector2i mouse = sf::Mouse::getPosition(window);
 
@@ -44,6 +57,7 @@ int main()
 //        options_class.draw_option_page(window);
 
         interface.draw_interface(window);
+        game_objects_ini.draw_game_objects(window);
 
         window.display();
     }
