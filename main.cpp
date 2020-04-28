@@ -13,6 +13,7 @@
 
 int main()
 {
+    bool main_ball = false, board_left = false, board_right = false;
     int width = 1200, height = 900, menu_option=0, setings_tab[5];
     auto mode_screen = sf::Style::Default;
     Save_load load_seting;
@@ -21,7 +22,7 @@ int main()
     if(setings_tab[2] == 2)   {mode_screen = sf::Style::Default;}                                                   //SETTINGS SCREEN WINDOW MODE
     else if(setings_tab[2] == 1)   {mode_screen = sf::Style::Fullscreen;}                                           //SETTINGS SCREEN FULLSCREEN MODE
 
-    sf::RenderWindow window(sf::VideoMode(1800, 1000), "Magic Board", mode_screen);
+    sf::RenderWindow window(sf::VideoMode(800, 1000), "Magic Board", mode_screen);
     window.setFramerateLimit(60);
     sf::Vector2i mouse = sf::Mouse::getPosition(window);
     Option_page options_class(window, mouse, menu_option);
@@ -40,16 +41,35 @@ int main()
                 {
                     if (event.key.code == sf::Keyboard::A)
                     {
-                        game_objects_ini.board_move_left(window);
+                        board_left = true;
                     }
                     if (event.key.code == sf::Keyboard::D)
                     {
-                        game_objects_ini.board_move_right(window);
+                        board_right = true;
+                    }
+                    if (event.key.code == sf::Keyboard::Space)
+                    {
+                        main_ball = true;
+                    }
+                }
+            if (event.type == sf::Event::KeyReleased)
+                {
+                    if (event.key.code == sf::Keyboard::A)
+                    {
+                        board_left = false;
+                    }
+                    if (event.key.code == sf::Keyboard::D)
+                    {
+                        board_right = false;
+                    }
+                    if (event.key.code == sf::Keyboard::Space)
+                    {
+                        main_ball = true;     //pause if i want
                     }
                 }
         }
         sf::Vector2i mouse = sf::Mouse::getPosition(window);
-
+        game_objects_ini.system(window, main_ball, board_left, board_right);
         window.clear();
 
 //        menu.draw_menu(window, mouse, menu_option, options_class);

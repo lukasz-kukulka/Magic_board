@@ -2,9 +2,10 @@
 
 
 
-Boards::Boards(sf::RenderWindow &window, sf::Texture *texture, int size_board)
+Boards::Boards(sf::RenderWindow &window, sf::Texture *texture, int size_board, float radius)
 {
-    this->speed_move_right = 30;
+    this->radius = radius;
+    std::cout<<"colision_change_x "<<radius<<std::endl;
     this->board_sprite.setTexture(*texture);
     this->board_sprite.setPosition(window.getSize().x/2 + board_sprite.getGlobalBounds().width * size_board, window.getSize().y/8*7);
 
@@ -14,12 +15,12 @@ Boards::~Boards(){}
 
 void Boards::move_board_left(sf::RenderWindow &window)
 {
-    board_sprite.move(-30, 0);
+    board_sprite.move(-10, 0);
 }
 
 void Boards::move_board_right(sf::RenderWindow &window)
 {
-    board_sprite.move(30, 0);
+    board_sprite.move(10, 0);
 }
 
 void Boards::move_board_stop(sf::RenderWindow &window)
@@ -47,9 +48,29 @@ void Boards::move_board_reset_left(sf::RenderWindow &window, int minus_size)
     board_sprite.setPosition(board_sprite.getPosition().x + minus_size, board_sprite.getPosition().y);
 }
 
-int Boards::move_board_position(sf::RenderWindow &window)
+int Boards::move_board_position_x(sf::RenderWindow &window)
 {
        return board_sprite.getPosition().x;
+}
+
+int Boards::move_board_position_y(sf::RenderWindow &window)
+{
+       return board_sprite.getPosition().y;
+}
+
+int Boards::move_board_global_bounds_h(sf::RenderWindow &window)
+{
+       return board_sprite.getGlobalBounds().height;
+}
+
+int Boards::move_board_global_bounds_w(sf::RenderWindow &window)
+{
+       return board_sprite.getGlobalBounds().width;
+}
+
+float Boards::move_board_radius(sf::RenderWindow &window)
+{
+       return radius;
 }
 
 void Boards::draw_board(sf::RenderWindow &window)
