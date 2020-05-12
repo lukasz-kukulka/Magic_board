@@ -756,7 +756,7 @@ void Option_page::draw_option_page(sf::RenderWindow &window)
 {
     if(menu_option_menu_page == 3)
     {
-       if(blocks.size()>0)
+       if(blocks.size() > 0)
     {
         for(int i = 0; i < blocks.size(); i++)
         {

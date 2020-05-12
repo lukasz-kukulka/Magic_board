@@ -14,6 +14,10 @@ public:
      ~Interface();
 
      void draw_interface(sf::RenderWindow &window);
+     int posX_middle(sf::RenderWindow &window, int);
+     int posY_middle(sf::RenderWindow &window, int);
+     int global_X_middle(sf::RenderWindow &window, int);
+     int global_Y_middle(sf::RenderWindow &window, int);
 
 private:
 

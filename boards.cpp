@@ -2,12 +2,13 @@
 
 
 
-Boards::Boards(sf::RenderWindow &window, sf::Texture *texture, int size_board, float radius)
+Boards::Boards(sf::RenderWindow &window, sf::Texture *texture, int size_board, float radius, int position)
 {
+    this->change_move_speed_x = 1.0;
+    this->change_move_speed_y = 1.0;
     this->radius = radius;
-    std::cout<<"colision_change_x "<<radius<<std::endl;
     this->board_sprite.setTexture(*texture);
-    this->board_sprite.setPosition(window.getSize().x/2 + board_sprite.getGlobalBounds().width * size_board, window.getSize().y/8*7);
+    this->board_sprite.setPosition(position + board_sprite.getGlobalBounds().width * size_board, window.getSize().y/8*7);
 
 }
 
@@ -15,17 +16,17 @@ Boards::~Boards(){}
 
 void Boards::move_board_left(sf::RenderWindow &window)
 {
-    board_sprite.move(-10, 0);
+    board_sprite.move(-20 * change_move_speed_x, 0 * change_move_speed_y);
 }
 
 void Boards::move_board_right(sf::RenderWindow &window)
 {
-    board_sprite.move(10, 0);
+    board_sprite.move(20 * change_move_speed_x, 0 * change_move_speed_y);
 }
 
 void Boards::move_board_stop(sf::RenderWindow &window)
 {
-    board_sprite.move(0, 0);
+    board_sprite.move(0 * change_move_speed_x, 0 * change_move_speed_y);
 }
 
 int Boards::move_board_check_right(sf::RenderWindow &window)
@@ -66,6 +67,20 @@ int Boards::move_board_global_bounds_h(sf::RenderWindow &window)
 int Boards::move_board_global_bounds_w(sf::RenderWindow &window)
 {
        return board_sprite.getGlobalBounds().width;
+}
+
+void Boards::change_board_speed(sf::RenderWindow &window, bool low_on)
+{
+    if(low_on == true)
+        {
+            change_move_speed_x = change_move_speed_x * 0.5;
+        }
+
+    else
+        {
+            change_move_speed_x = 1;
+        }
+    change_move_speed_x = change_move_speed_x * 0.5;
 }
 
 float Boards::move_board_radius(sf::RenderWindow &window)

@@ -7,17 +7,27 @@ Ball::Ball(sf::RenderWindow &window, sf::Texture *texture)
     this->left_colision = ((window.getSize().x/2) % 32) + (66);
     this->right_colision = window.getSize().x - ((window.getSize().x % 32) + (96));
     this->ball_main.setTexture(*texture);
-    this->ball_main.setPosition(500, 500);
+    this->ball_main.setPosition(window.getSize().x/2, window.getSize().y/2);
     this->colision_change_y = 1;
     this->colision_change_x = 1;
     this->radius_colision = 0;
+    this->real_speed_x = 0;
+    this->real_speed_y = 0;
+    this->radius = 1;
 }
 
 Ball::~Ball(){}
 
 void Ball::move_ball(sf::RenderWindow &window, float dir_X = 1, float dir_Y = -1, float speed = 1, float level = 1)
 {
-    ball_main.move(speed * dir_X * level, speed * dir_Y * level);
+    real_speed_x = speed * dir_X * level;
+    real_speed_y = speed * dir_Y * level;
+    if(real_speed_x <= 8)
+        {
+            real_speed_x = 8;
+            real_speed_y = 8;
+        }
+    ball_main.move(real_speed_x, real_speed_y);
 }
 
 int Ball::colision_main_ball_y(sf::RenderWindow &window)
@@ -55,12 +65,12 @@ int Ball::colision_main_ball_board_x(sf::RenderWindow &window)
             return colision_change_x;
 }
 
-int Ball::main_ball_position_x(sf::RenderWindow &window)
+float Ball::main_ball_position_x(sf::RenderWindow &window)
 {
        return ball_main.getPosition().x ;
 }
 
-int Ball::main_ball_position_y(sf::RenderWindow &window)
+float Ball::main_ball_position_y(sf::RenderWindow &window)
 {
        return ball_main.getPosition().y;
 }
@@ -84,6 +94,22 @@ float Ball::main_ball_radius_colision_out(sf::RenderWindow &window)
 {
     return radius_colision;
 }
+
+void Ball::main_ball_ad_pos(sf::RenderWindow &window, int pos_x, int pos_y)
+{
+    ball_main.setPosition(ball_main.getPosition().x + pos_x, ball_main.getPosition().y + pos_y);
+}
+
+float Ball::main_ball_real_speed_x(sf::RenderWindow &window)
+{
+    return real_speed_x;
+}
+
+float Ball::main_ball_real_speed_y(sf::RenderWindow &window)
+{
+    return real_speed_y;
+}
+
 
 void Ball::draw_ball(sf::RenderWindow &window)
 {

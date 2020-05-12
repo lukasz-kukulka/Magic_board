@@ -1,14 +1,16 @@
 # depslib dependency file v1.0
-1588115116 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\ball.cpp
+1589303670 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\ball.cpp
 	"ball.h"
 
-1585508291 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\bonus.cpp
+1588795550 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\bonus.cpp
+	"bonus.h"
 
-1585508104 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\enemy.cpp
+1589317284 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\enemy.cpp
+	"enemy.h"
 
 1585508325 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\level.cpp
 
-1587782173 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.cpp
+1588299498 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu.cpp
 	<iostream>
 	<conio.h>
 	<SFML/Graphics.hpp>
@@ -441,9 +443,10 @@
 1587776618 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\score.cpp
 	"score.h"
 
-1585508463 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\text_ini.cpp
+1589315892 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\text_ini.cpp
+	"text_ini.h"
 
-1588110378 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\main.cpp
+1589312561 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
@@ -454,12 +457,16 @@
 	"save_load.h"
 	"interface.h"
 	"game_objects_ini.h"
+	<stdlib.h>
+	<time.h>
+	<stdio.h>
 
-1585939307 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\animations.cpp
+1588702467 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\animations.cpp
+	"animations.h"
 
 1585973799 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\menu_credit.cpp
 
-1587871062 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\option_page.cpp
+1589310322 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\option_page.cpp
 	"option_page.h"
 	<windows.h>
 
@@ -493,12 +500,12 @@
 1587519610 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\buttons.cpp
 	"buttons.h"
 
-1587778395 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\save_load.cpp
+1589310628 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\save_load.cpp
 	"save_load.h"
 	<fstream>
 	<windows.h>
 
-1587775852 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\save_load.h
+1589310231 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\save_load.h
 	<iostream>
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
@@ -511,48 +518,118 @@
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 
-1588002484 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\backgroud_game.cpp
+1588798645 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\backgroud_game.cpp
 	"backgroud_game.h"
 
-1587871062 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\backgroud_game.h
+1588798644 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\backgroud_game.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 
-1587871062 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\interface.h
+1589295905 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\interface.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	"backgroud_game.h"
 
-1587950762 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\interface.cpp
+1589295924 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\interface.cpp
 	"interface.h"
 
-1588110645 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\boards.cpp
+1589319576 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\boards.cpp
 	"boards.h"
 
-1588035772 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\boards.h
+1588887503 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\boards.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 
-1588115942 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\game_objects_ini.cpp
+1589319545 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\game_objects_ini.cpp
 	"game_objects_ini.h"
 
-1588110761 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\game_objects_ini.h
+1589316829 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\game_objects_ini.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
 	"boards.h"
 	"ball.h"
+	"enemy.h"
+	"animations.h"
+	"bonus.h"
+	"interface.h"
+	"lifes.h"
+	"shooting.h"
+	"text_ini.h"
+	"save_load.h"
 
-1588114867 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\ball.h
+1588735583 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\ball.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<SFML/System.hpp>
+
+1589316829 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\enemy.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+
+1588124257 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\tiles.cpp
+	"tiles.h"
+
+1588124257 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\tiles.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+
+1588701636 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\animations.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+
+1588789752 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\bonus.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<stdlib.h>
+	<time.h>
+	<stdio.h>
+
+1588801870 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\lifes.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+
+1588805030 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\lifes.cpp
+	"lifes.h"
+
+1588994316 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\shooting.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+
+1589135021 source:d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\shooting.cpp
+	"shooting.h"
+
+1589215664 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\text_ini..h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<string>
+
+1589311504 d:\dokumenty\dysk google\programowanie\smfl\magic_board\magic_board\text_ini.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<SFML/System.hpp>
+	<string>
 

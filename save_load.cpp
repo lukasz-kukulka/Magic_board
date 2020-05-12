@@ -179,7 +179,35 @@ void Save_load::load_score(sf::RenderWindow &window, sf::Font *font)
         files.close();
 }
 
+std::string Save_load::best_score(sf::RenderWindow &window)
+{
+    int no_line = 1;
+    std::string line;
+    std::fstream files;
+    files.open("score.txt", std::ios::in);
+
+    if(files.good()==false)
+        {
+            std::cout<<"File not exist"<<std::endl;
+            exit(0);
+        }
+
+    while(getline(files, line))
+        {
+            if(no_line == 2)
+                {
+                    return line;
+                }
+            no_line++;
+        }
+}
+
 void Save_load::save_score(sf::RenderWindow &window)
+{
+//after game ready
+}
+
+void Save_load::sort_score(sf::RenderWindow &window)
 {
 //after game ready
 }
@@ -191,7 +219,7 @@ void Save_load::draw_save_load(sf::RenderWindow &window)
 
 void Save_load::draw_score(sf::RenderWindow &window)
 {
-    for(int i = 0; i <cell.size(); i++)
+    for(int i = 0; i < cell.size(); i++)
         {
             cell[i].draw_score(window);
         }

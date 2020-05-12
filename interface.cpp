@@ -109,10 +109,29 @@ Interface::Interface(sf::RenderWindow &window)
 Interface:: ~Interface(){}
 
 
-void Interface:: draw_interface(sf::RenderWindow &window)
+int Interface::posX_middle(sf::RenderWindow &window, int place)
+{
+    return interface_items[place].posX_middle(window);
+}
+
+int Interface::posY_middle(sf::RenderWindow &window, int place)
+{
+    return interface_items[place].posY_middle(window);
+}
+
+int Interface::global_X_middle(sf::RenderWindow &window, int place)
+{
+    return interface_items[place].global_X_middle(window);
+}
+
+int Interface::global_Y_middle(sf::RenderWindow &window, int place)
+{
+    return interface_items[place].global_Y_middle(window);
+}
+
+void Interface::draw_interface(sf::RenderWindow &window)
 {
     window.draw(backgroud_inter);
-    std::cout<<corners.size()<<std::endl;
     for(int i = 0; i < connect_board.size(); i++)
         {
             connect_board[i].draw_backgroud_connector(window);

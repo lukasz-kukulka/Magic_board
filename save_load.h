@@ -21,6 +21,8 @@ void draw_save_load(sf::RenderWindow &window);
 void save_score(sf::RenderWindow &window);
 void load_score(sf::RenderWindow &window, sf::Font *font);
 void draw_score(sf::RenderWindow &window);
+void sort_score(sf::RenderWindow &window);
+std::string best_score(sf::RenderWindow &window);
 
 private:
 

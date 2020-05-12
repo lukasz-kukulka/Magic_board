@@ -10,7 +10,7 @@ class Boards
 {
 public:
 
-     Boards(sf::RenderWindow &window, sf::Texture *texture, int, float);
+     Boards(sf::RenderWindow &window, sf::Texture *texture, int, float, int);
 
      ~Boards();
 
@@ -27,12 +27,13 @@ public:
     int move_board_check_right(sf::RenderWindow &window);
     int move_board_check_left(sf::RenderWindow &window);
     float move_board_radius(sf::RenderWindow &window);
+    void change_board_speed(sf::RenderWindow &window, bool);
 
 
 private:
     sf::Sprite board_sprite;
     int size_board, set_position_x;
-    float radius;
+    float radius, change_move_speed_x, change_move_speed_y;
 
 };
 #endif

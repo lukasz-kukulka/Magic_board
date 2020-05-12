@@ -49,16 +49,26 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="animations.cpp" />
+		<Unit filename="animations.h" />
 		<Unit filename="backgroud_game.cpp" />
 		<Unit filename="backgroud_game.h" />
+		<Unit filename="ball.cpp" />
+		<Unit filename="ball.h" />
 		<Unit filename="boards.cpp" />
 		<Unit filename="boards.h" />
+		<Unit filename="bonus.cpp" />
+		<Unit filename="bonus.h" />
 		<Unit filename="credits.cpp" />
 		<Unit filename="credits.h" />
+		<Unit filename="enemy.cpp" />
+		<Unit filename="enemy.h" />
 		<Unit filename="game_objects_ini.cpp" />
 		<Unit filename="game_objects_ini.h" />
 		<Unit filename="interface.cpp" />
 		<Unit filename="interface.h" />
+		<Unit filename="lifes.cpp" />
+		<Unit filename="lifes.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />
@@ -81,6 +91,10 @@
 		<Unit filename="sfml-system-d-2.dll" />
 		<Unit filename="sfml-window-2.dll" />
 		<Unit filename="sfml-window-d-2.dll" />
+		<Unit filename="shooting.cpp" />
+		<Unit filename="shooting.h" />
+		<Unit filename="text_ini.cpp" />
+		<Unit filename="text_ini.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

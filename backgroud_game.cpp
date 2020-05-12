@@ -49,6 +49,26 @@ Backgroung_game::Backgroung_game(sf::Texture *square, int pozX, int pozY, int ro
 
 Backgroung_game::~Backgroung_game(){}
 
+int Backgroung_game::posX_middle(sf::RenderWindow &window)
+{
+    return middle_sprite1.getPosition().x;
+}
+
+int Backgroung_game::global_X_middle(sf::RenderWindow &window)
+{
+    return middle_sprite1.getGlobalBounds().width;
+}
+
+int Backgroung_game::posY_middle(sf::RenderWindow &window)
+{
+    return middle_sprite1.getPosition().y;
+}
+
+int Backgroung_game::global_Y_middle(sf::RenderWindow &window)
+{
+    return middle_sprite1.getGlobalBounds().height;
+}
+
 void Backgroung_game::draw_backgroud_game(sf::RenderWindow &window)
 {
     window.draw(left_sprite);

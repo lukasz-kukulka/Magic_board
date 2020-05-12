@@ -22,6 +22,10 @@ public:
     void draw_backgroud_corners(sf::RenderWindow &window);
     void draw_backgroud_quads(sf::RenderWindow &window);
     void draw_backgroud_square(sf::RenderWindow &window);
+    int posY_middle(sf::RenderWindow &window);
+    int posX_middle(sf::RenderWindow &window);
+    int global_X_middle(sf::RenderWindow &window);
+    int global_Y_middle(sf::RenderWindow &window);
 
 
 private:

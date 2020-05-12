@@ -8,15 +8,22 @@
 #include "save_load.h"
 #include "interface.h"
 #include "game_objects_ini.h"
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+
 
 
 
 int main()
 {
-    bool main_ball = false, board_left = false, board_right = false;
+    srand( time( NULL ) );
+    bool main_ball = false, board_left = false, board_right = false, bullet = false, play = true;
     int width = 1200, height = 900, menu_option=0, setings_tab[5];
     auto mode_screen = sf::Style::Default;
     Save_load load_seting;
+
+
 
     for(int i = 0; i < 5; i++)  {setings_tab[i] = load_seting.load_setings(i);}                                     //LOAD SETTINGS FROM FILE FROM save_load CLASS TO TABLE
     if(setings_tab[2] == 2)   {mode_screen = sf::Style::Default;}                                                   //SETTINGS SCREEN WINDOW MODE
@@ -28,15 +35,16 @@ int main()
     Option_page options_class(window, mouse, menu_option);
     Menu menu(window, mouse, menu_option, options_class);
     Interface interface(window);
-    Game_objects_ini game_objects_ini(window);
-
+    Game_objects_ini game_objects_ini(window, interface);
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
+
             if (event.type == sf::Event::Closed)
                 window.close();
+
             if (event.type == sf::Event::KeyPressed)
                 {
                     if (event.key.code == sf::Keyboard::A)
@@ -52,6 +60,15 @@ int main()
                         main_ball = true;
                     }
                 }
+
+            if (event.type == sf::Event::MouseButtonPressed)
+                {
+                    if (event.mouseButton.button == sf::Mouse::Right)
+                    {
+                        bullet = true;
+                    }
+                }
+
             if (event.type == sf::Event::KeyReleased)
                 {
                     if (event.key.code == sf::Keyboard::A)
@@ -67,11 +84,18 @@ int main()
                         main_ball = true;     //pause if i want
                     }
                 }
+
+            if (event.type == sf::Event::MouseButtonReleased)
+                {
+                    if (event.mouseButton.button == sf::Mouse::Right)
+                    {
+                        bullet = false;
+                    }
+                }
         }
         sf::Vector2i mouse = sf::Mouse::getPosition(window);
-        game_objects_ini.system(window, main_ball, board_left, board_right);
+        game_objects_ini.system(window, main_ball, board_left, board_right, bullet);
         window.clear();
-
 //        menu.draw_menu(window, mouse, menu_option, options_class);
 //        menu_option = menu.menu_option_if(window, mouse, menu_option, options_class);
 //        options_class.draw_option_page(window);
