@@ -9,11 +9,19 @@ Game_objects_ini::Game_objects_ini(sf::RenderWindow &window, Interface &interfac
     this->player_middle_green.loadFromFile("Textures/player-middle-green.png");
     this->player_right_green.loadFromFile("Textures/player-right-green.png");
 
-    this->blue_button.loadFromFile("Textures/blue_button.png");
-    this->yellow_button.loadFromFile("Textures/yellow_button.png");
-    this->orange_button.loadFromFile("Textures/orange_button.png");
-    this->grey_button.loadFromFile("Textures/grey_button.png");
-    this->green_button.loadFromFile("Textures/green_button.png");
+    this->player_left_red.loadFromFile("Textures/player-left-red.png");
+    this->player_middle_red.loadFromFile("Textures/player-middle-red.png");
+    this->player_right_red.loadFromFile("Textures/player-right-red.png");
+
+    this->player_left_yellow.loadFromFile("Textures/player-left-yellow.png");
+    this->player_middle_yellow.loadFromFile("Textures/player-middle-yellow.png");
+    this->player_right_yellow.loadFromFile("Textures/player-right-yellow.png");
+
+    this->blue_button.loadFromFile("Textures/blue_button.png"); //1 HP
+    this->yellow_button.loadFromFile("Textures/yellow_button.png");//2 HP
+    this->orange_button.loadFromFile("Textures/orange_button.png");//3 HP
+    this->grey_button.loadFromFile("Textures/grey_button.png");//4 HP
+    this->green_button.loadFromFile("Textures/green_button.png");//5 HP
 
     this->stage1.loadFromFile("Textures/stage1.png");
     this->stage2.loadFromFile("Textures/stage2.png");
@@ -36,27 +44,6 @@ Game_objects_ini::Game_objects_ini(sf::RenderWindow &window, Interface &interfac
     this->fire.loadFromFile("Textures/fire.png");
     this->ball_red.loadFromFile("Textures/ball-red.png");
 
-    this->enemy_scale_x = window.getSize().x/3000.0;
-    this->enemy_scale_y = window.getSize().y/2400.0;
-    this->size_enemy_x = 190.0 * enemy_scale_x;
-    this->size_enemy_y = 8;
-    this->how_many_columns_enemy = ((window.getSize().x/2 - (2 * size_enemy_x))/size_enemy_x) * 2;
-    this->min_delete = 0;
-    this->top_size = 130;
-    this->left_size = window.getSize().x/2 - ((how_many_columns_enemy % 2) * (size_enemy_x)/2) - how_many_columns_enemy/2*size_enemy_x;
-    this->ball_speed = 2;
-    this->balls_temp_x = 0;
-    this->balls_temp_y = 0;
-    this->for_s = ball_speed;
-    this->ball_real_speed_x = ball_speed;
-    this->ball_real_speed_y = ball_speed;
-    this->level = 1;
-    this->position_board = window.getSize().x/2;
-    this->size_board_index = window.getSize().x/60;
-    this->reverse_ball_board = size_board_index/70.0;
-    this->reverse_ball_board_temp = 0;
-    this->wall_size = 0;
-
     this->wall_begin_x = ((window.getSize().x/2) % 32) + 70;
     this->wall_begin_y = window.getSize().y/11*10;
     this->wall_scale_x = (((window.getSize().x - (2.0* wall_begin_x)) / 12.0) / 200.0);
@@ -67,48 +54,29 @@ Game_objects_ini::Game_objects_ini(sf::RenderWindow &window, Interface &interfac
     this->globalY_life = interface.global_Y_middle(window, 2);
     this->posY_life =  interface.posY_middle(window, 2) + globalY_life/2;
 
-
     this->globalX_point = interface.global_X_middle(window, 0);
     this->globalY_point = interface.global_Y_middle(window, 0);
     this->posY_point =  interface.posY_middle(window, 0) + globalY_point/2;
     this->posX_point = interface.posX_middle(window, 0) + globalX_point/2;
-    points.push_back(Text_ini(window, &font_points, "00000000", "YOUR SCORE", posX_point, posY_point));
 
     this->globalX_best = interface.global_X_middle(window, 1);
     this->globalY_best = interface.global_Y_middle(window, 1);
     this->posY_best =  interface.posY_middle(window, 1) + globalY_best/2;
     this->posX_best = interface.posX_middle(window, 1) + globalX_best/2;
-    Save_load best_score;
-    points.push_back(Text_ini(window, &font_points, best_score.best_score(window), "BEST SCORE", posX_best, posY_best));
 
-    this->max_lifes = 10;
-    this->start_life = 3;
-    this->bonuses_index = 0;
-
-    this->your_point = 0;
-    this->point_time = point_clock.getElapsedTime();
-
-    this->ERROR = 0;
-    this->time_shooting = sf::seconds(10.00f);
-    this->time_check = 0;
-    this->shoot_enabled == false;
+    sound_ini(window);
 
     object_setings(window);
-    board_ini(window);
-    balls_ini(window);
-    enemies_ini(window);
-    life_ini(window);
-    life_check_add(window);
-    text_ann.push_back(Text_ini(window, &font_ann, "PRESS 'SPACE' BUTTON TO START", text_ann.size()));
 }
 
 Game_objects_ini::~Game_objects_ini(){}
 
-
 void Game_objects_ini::board_ini(sf::RenderWindow &window)
 {
-
+    Save_load* board_color = new Save_load;
     reverse_ball_board_temp = 0;
+
+
     for(int i = 0; i < size_board_index; i++)
         {
             if(i<=size_board_index/2)
@@ -121,10 +89,62 @@ void Game_objects_ini::board_ini(sf::RenderWindow &window)
                     this->reverse_ball_board_temp = reverse_ball_board_temp - reverse_ball_board;
                 }
 
-            if(i == 0){board_blocks.push_back(Boards(window, &player_left_green, i, reverse_ball_board_temp, position_board));}
-            else if(i > 0 && i < size_board_index - 1){board_blocks.push_back(Boards(window, &player_middle_green, i, reverse_ball_board_temp, position_board));}
-            else if(i == size_board_index - 1){board_blocks.push_back(Boards(window, &player_right_green, i, reverse_ball_board_temp, position_board));}
+            if(board_color->load_board_lvl(window, 5) == 1)
+                {
+                    if(i == 0)
+                        {
+                            board_blocks.push_back(Boards(window, &player_left_red, i, reverse_ball_board_temp, position_board));
+                        }
+
+                    else if(i > 0 && i < size_board_index - 1)
+                        {
+                            board_blocks.push_back(Boards(window, &player_middle_red, i, reverse_ball_board_temp, position_board));
+                        }
+
+                    else if(i == size_board_index - 1)
+                        {
+                            board_blocks.push_back(Boards(window, &player_right_red, i, reverse_ball_board_temp, position_board));
+                        }
+                }
+
+            else if(board_color->load_board_lvl(window, 5) == 2)
+                {
+                    if(i == 0)
+                        {
+                            board_blocks.push_back(Boards(window, &player_left_green, i, reverse_ball_board_temp, position_board));
+                        }
+
+                    else if(i > 0 && i < size_board_index - 1)
+                        {
+                            board_blocks.push_back(Boards(window, &player_middle_green, i, reverse_ball_board_temp, position_board));
+                        }
+
+                    else if(i == size_board_index - 1)
+                        {
+                            board_blocks.push_back(Boards(window, &player_right_green, i, reverse_ball_board_temp, position_board));
+                        }
+                }
+
+            else if(board_color->load_board_lvl(window, 5) == 3)
+                {
+                    if(i == 0)
+                        {
+                            board_blocks.push_back(Boards(window, &player_left_yellow, i, reverse_ball_board_temp, position_board));
+                        }
+
+                    else if(i > 0 && i < size_board_index - 1)
+                        {
+                            board_blocks.push_back(Boards(window, &player_middle_yellow, i, reverse_ball_board_temp, position_board));
+                        }
+
+                    else if(i == size_board_index - 1)
+                        {
+                            board_blocks.push_back(Boards(window, &player_right_yellow, i, reverse_ball_board_temp, position_board));
+                        }
+                }
         }
+    delete board_color;
+    board_color = 0;
 }
 
 void Game_objects_ini::life_ini(sf::RenderWindow &window)
@@ -135,9 +155,10 @@ void Game_objects_ini::life_ini(sf::RenderWindow &window)
                 {
                     lifes.push_back(Lifes(window, &extra_life, posX_life, posY_life, i, j));
                 }
+        }
+
 }
 
-        }
 void Game_objects_ini::life_check_add(sf::RenderWindow &window)
 {
     for(int i = 0; i < lifes.size(); i++)
@@ -155,63 +176,453 @@ void Game_objects_ini::life_check_add(sf::RenderWindow &window)
 
 void Game_objects_ini::balls_ini(sf::RenderWindow &window)
 {
-    balls.push_back(Ball(window, &ball_red));
+    Save_load* difficulty = new Save_load;
+
+    if(difficulty->load_board_lvl(window, 3) == 1)
+        {
+            balls.push_back(Ball(window, &ball_red));
+            balls.push_back(Ball(window, &ball_red));
+            balls.push_back(Ball(window, &ball_red));
+        }
+
+    else if(difficulty->load_board_lvl(window, 3) == 2)
+        {
+            balls.push_back(Ball(window, &ball_red));
+            balls.push_back(Ball(window, &ball_red));
+        }
+
+    else if(difficulty->load_board_lvl(window, 3) == 3)
+        {
+            balls.push_back(Ball(window, &ball_red));
+        }
+    delete difficulty;
+    difficulty = 0;
 }
 
 void Game_objects_ini::enemies_ini(sf::RenderWindow &window)
 {
-    for(int j = 0; j < size_enemy_y; j++)
+    if(level == 1)
         {
-            for(int i = 0; i < how_many_columns_enemy; i++)
+            for(int j = 0; j < size_enemy_y; j++)
                 {
-                    if(j == 0 || j == 5)
-                    {
-                        enemies.push_back(Enemy(window, &blue_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 1, level));
-                    }
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            enemies.push_back(Enemy(window, &blue_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 1, level));
+                        }
+                }
+        }
 
-                    else if(j == 1 || j == 6)
-                    {
-                        enemies.push_back(Enemy(window, &yellow_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 2, level));
-                    }
+    else if(level == 2)
+        {
+            for(int j = 0; j < size_enemy_y; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            if(j == 0)
+                                {
+                                    enemies.push_back(Enemy(window, &yellow_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 2, level));
+                                }
+                            else
+                                {
+                                    enemies.push_back(Enemy(window, &blue_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 1, level));
+                                }
+                        }
+                }
+        }
 
-                    else if(j == 2 || j == 7)
-                    {
-                        enemies.push_back(Enemy(window, &green_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 3, level));
-                    }
+    else if(level == 3)
+        {
+            for(int j = 0; j < size_enemy_y; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            if(j == 0)
+                                {
+                                    enemies.push_back(Enemy(window, &yellow_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 2, level));
+                                }
+                            else if(j == 4)
+                                {
+                                    enemies.push_back(Enemy(window, &orange_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 3, level));
+                                }
+                            else
+                                {
+                                    enemies.push_back(Enemy(window, &blue_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 1, level));
+                                }
+                        }
+                }
+        }
 
-                    else if(j == 3 || j == 8)
-                    {
-                        enemies.push_back(Enemy(window, &orange_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 4, level));
-                    }
+    else if(level == 4)
+        {
+            for(int j = 0; j < size_enemy_y; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            if(j == 0 || j == 1)
+                                {
+                                    enemies.push_back(Enemy(window, &yellow_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 2, level));
+                                }
+                            else if(j == 4)
+                                {
+                                    enemies.push_back(Enemy(window, &orange_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 3, level));
+                                }
+                            else if(j == 7)
+                                {
+                                    enemies.push_back(Enemy(window, &grey_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 4, level));
+                                }
 
-                    else if(j == 4 || j >= 9)
-                    {
-                        enemies.push_back(Enemy(window, &grey_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 5, level));
-                    }
+                            else
+                                {
+                                    enemies.push_back(Enemy(window, &blue_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 1, level));
+                                }
+                        }
+                }
+        }
+
+    else if(level == 5)
+        {
+            for(int j = 0; j < size_enemy_y; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            enemies.push_back(Enemy(window, &yellow_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 2, level));
+                        }
+                }
+        }
+
+    else if(level == 6)
+        {
+            for(int j = 0; j < size_enemy_y; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            if(j == 0 || j == 1 || j == 2 || j == 3)
+                                {
+                                    enemies.push_back(Enemy(window, &yellow_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 2, level));
+                                }
+                            else
+                                {
+                                    enemies.push_back(Enemy(window, &orange_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 3, level));
+                                }
+                        }
+                }
+        }
+
+    else if(level == 7)
+        {
+            for(int j = 0; j < size_enemy_y; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            enemies.push_back(Enemy(window, &orange_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 3, level));
+                        }
+                }
+        }
+
+    else if(level == 8)
+        {
+            for(int j = 0; j < size_enemy_y; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            if(j == 0 || j == 1)
+                                {
+                                    enemies.push_back(Enemy(window, &grey_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 4, level));
+                                }
+                            else if(j == 4)
+                                {
+                                    enemies.push_back(Enemy(window, &green_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 5, level));
+                                }
+
+                            else
+                                {
+                                    enemies.push_back(Enemy(window, &orange_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 3, level));
+                                }
+                        }
+                }
+        }
+
+    else if(level == 9)
+        {
+            for(int j = 0; j < size_enemy_y; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            if(j == 0 || j == 1 || j == 2 || j == 3 || j == 4 )
+                                {
+                                    enemies.push_back(Enemy(window, &grey_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 4, level));
+                                }
+                            else
+                                {
+                                    enemies.push_back(Enemy(window, &green_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 5, level));
+                                }
+                        }
+                }
+        }
+
+    else if(level == 10)
+        {
+            for(int j = 0; j < size_enemy_y + 3; j++)
+                {
+                    for(int i = 0; i < how_many_columns_enemy; i++)
+                        {
+                            enemies.push_back(Enemy(window, &green_button, left_size, top_size, i, j, enemy_scale_x, enemy_scale_y, 5, level));
+                        }
                 }
         }
 }
 
 void Game_objects_ini::system(sf::RenderWindow &window, bool main_ball, bool board_left, bool board_right, bool bullet)
 {
-    if(main_ball == true)
+    this->game_over_time = game_over_clock.getElapsedTime();
+    if(system_game_over == true)
         {
-            balls_start(window);
+            game_over(window);
         }
 
-    if(board_left == true)
+    else
         {
-            board_move_left(window);
-        }
+            this->time_fun = clock_fun.getElapsedTime();
+            this->time_end_level = clock_end_level.getElapsedTime();
+            this->point_time = point_clock.getElapsedTime();
+            if(enemies.size()!=0 && start_life != 0)
+                {
+                    if(main_ball == true)
+                        {
+                            space_press_index = true;
+                            balls_start(window);
+                            if(music_play == false)
+                                {
+                                    music.play();
+                                    music_play = true;
+                                }
+                        }
 
-    if(board_right == true)
-        {
-            board_move_right(window);
-        }
+                    if(board_left == true)
+                        {
+                            board_move_left(window);
+                        }
 
-    if(bullet == true)
+                    if(board_right == true)
+                        {
+                            board_move_right(window);
+                        }
+
+                    if(bullet == true)
+                        {
+                            shooting_start(window);
+                        }
+                    ann_level = false;
+                    ann_summary = false;
+                    clock_end_level.restart();
+                }
+
+            else
+                {
+                    for(int i = 0; i < text_ann.size(); i++)
+                        {
+                            text_ann.erase(text_ann.begin(), text_ann.end());
+                        }
+
+                    for(int i = 0; i < enemies_die.size(); i++)
+                        {
+                            enemies_die.erase(enemies_die.begin(), enemies_die.end());
+                        }
+
+                    for(int i = 0; i < shots.size(); i++)
+                        {
+                            shots.erase(shots.begin(), shots.end());
+                        }
+
+                    for(int i = 0; i < balls.size(); i++)
+                        {
+                            balls.erase(balls.begin(), balls.end());
+                        }
+
+                    for(int i = 0; i < wall.size(); i++)
+                        {
+                            wall.erase(wall.begin(), wall.end());
+                        }
+
+                    for(int i = 0; i < bonuses.size(); i++)
+                        {
+                            bonuses.erase(bonuses.begin(), bonuses.end());
+                        }
+
+                    for(int i = 0; i < board_blocks.size(); i++)
+                        {
+                            board_blocks.erase(board_blocks.begin(), board_blocks.end());
+                        }
+
+
+                            if(ann_level == false)
+                                {
+                                    if(lvl_play == false && start_life > 0)
+                                        {
+                                            lvl_sound.play();
+                                            lvl_play = true;
+                                        }
+                                    time_points_level_end = point_time.asSeconds();
+
+                                    if(level < 10 && start_life > 0)
+                                        {
+                                            text_ann.push_back(Text_ini(window, &font_ann, "CONGRATULATIONS" , text_ann.size()));
+                                            text_ann.push_back(Text_ini(window, &font_ann, "" , text_ann.size()));
+                                            text_ann.push_back(Text_ini(window, &font_ann, "You finished " + std::to_string(level) + " level" , text_ann.size()));
+                                        }
+                                    else
+                                        {
+                                            text_ann.push_back(Text_ini(window, &font_ann, "GAME OVER" , text_ann.size()));
+                                        }
+
+                                }
+
+                            if(start_life <= 0)
+                                        {
+                                            time_points_level_end = 200 * level;
+                                        }
+
+                            if(time_end_level.asSeconds() >= 3 && ann_summary == false)
+                                {
+                                    ann_level = true;
+                                    text_ann.erase(text_ann.begin(), text_ann.end());
+                                    summary.push_back(Summary(window, &font_points, your_point, level * 200 - time_points_level_end));
+                                    ann_summary = true;
+                                }
+
+                            for(int i = 0; i < summary.size(); i++)
+                                {
+                                    if(time_fun.asMilliseconds() >= time_fun_temp && time_end_level.asSeconds() >= 4)
+                                        {
+                                            clock_fun.restart();
+                                            if(summary[i].time_point_up(window) == false)
+                                                {
+                                                    summary[i].summary_point_up(window, (your_point, level * 200 - time_points_level_end) + your_point);
+                                                    if(summary[i].summary_point_up(window, (your_point, level * 200 - time_points_level_end) + your_point) == false)
+                                                        {
+                                                            if(level < 10 && start_life > 0)
+                                                                {
+                                                                    if(summary[i].summary_move_to_points(window, points[0].posX(window), points[0].posY(window)) == false)
+                                                                        {
+                                                                            summary.erase(summary.begin(), summary.end());
+                                                                            your_point = your_point + (level * 200 - time_points_level_end);
+                                                                            text_ann.push_back(Text_ini(window, &font_ann, "PRESS 'SPACE' BUTTON TO START", text_ann.size()));
+                                                                            level++;
+                                                                            space_press_index = false;
+                                                                            ball_speed++;
+                                                                            if(ball_speed > 9)
+                                                                                {
+                                                                                    ball_speed = 9;
+                                                                                }
+                                                                            this->size_board_index = window.getSize().x/60;
+                                                                            board_ini(window);
+                                                                            balls_ini(window);
+                                                                            enemies_ini(window);
+                                                                            this->lvl_play = false;
+                                                                        }
+
+                                                                }
+                                                            else
+                                                                {
+                                                                    game_over_clock.restart();
+                                                                    system_game_over = true;
+                                                                    text_ann.push_back(Text_ini(window, &font_ann, "PRESS 'SPACE' BUTTON TO continue", 15));
+                                                                }
+
+                                                        }
+                                                }
+                                        }
+                                }
+                }
+        }
+}
+
+void Game_objects_ini::game_over(sf::RenderWindow &window)
+{
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && summary[0].del_char(window) == false)
+                {
+                    for(int i = 0; i < text_ann.size(); i++)
+                        {
+                            text_ann.erase(text_ann.begin(), text_ann.end());
+                        }
+
+                    for(int i = 0; i < summary.size(); i++)
+                        {
+                            summary.erase(summary.begin(), summary.end());
+                        }
+
+                    for(int i = 0; i < points.size(); i++)
+                        {
+                            points.erase(points.begin(), points.end());
+                        }
+
+                    for(int i = 0; i < enemies_die.size(); i++)
+                        {
+                            enemies_die.erase(enemies_die.begin(), enemies_die.end());
+                        }
+
+                    for(int i = 0; i < shots.size(); i++)
+                        {
+                            shots.erase(shots.begin(), shots.end());
+                        }
+
+                    for(int i = 0; i < balls.size(); i++)
+                        {
+                            balls.erase(balls.begin(), balls.end());
+                        }
+
+                    for(int i = 0; i < wall.size(); i++)
+                        {
+                            wall.erase(wall.begin(), wall.end());
+                        }
+
+                    for(int i = 0; i < bonuses.size(); i++)
+                        {
+                            bonuses.erase(bonuses.begin(), bonuses.end());
+                        }
+
+                    for(int i = 0; i < board_blocks.size(); i++)
+                        {
+                            board_blocks.erase(board_blocks.begin(), board_blocks.end());
+                        }
+
+                    for(int i = 0; i < lifes.size(); i++)
+                        {
+                            lifes.erase(lifes.begin(), lifes.end());
+                        }
+
+                    for(int i = 0; i < enemies.size(); i++)
+                        {
+                            enemies.erase(enemies.begin(), enemies.end());
+                        }
+                    summary.push_back(Summary(window, &font_points));
+                    system_game_over_ini = true;
+                    music.pause();
+                }
+
+
+}
+
+bool Game_objects_ini::space_press(sf::RenderWindow &window)
+{
+    return space_press_index;
+}
+
+int Game_objects_ini::points_out(sf::RenderWindow &window)
+{
+    return your_point;
+}
+
+bool Game_objects_ini::enter_name_bool(sf::RenderWindow &window)
+{
+    return system_game_over_ini;
+}
+
+int Game_objects_ini::enter_name_void(sf::RenderWindow &window, std::string name)
+{
+    if(summary.size() > 0)
         {
-            shooting_start(window);
+            return summary[0].insert_name(window, name).size();
         }
 }
 
@@ -229,7 +640,10 @@ void Game_objects_ini::balls_start(sf::RenderWindow &window)
 
 void Game_objects_ini::bullets_colision(sf::RenderWindow &window)
 {
-
+    if(balls.size() == 0 && start_life == 0)
+        {
+            game_over(window);
+        }
 
     points[0].points_update(window, your_point);
 
@@ -273,6 +687,7 @@ void Game_objects_ini::bullets_colision(sf::RenderWindow &window)
 
 void Game_objects_ini::colision_objects(sf::RenderWindow &window)
 {
+    Save_load* difficulty = new Save_load;
     time_slow_board = clock_slow_board.getElapsedTime();
     if(time_slow_board.asSeconds() >= 5.0)
         {
@@ -304,6 +719,7 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
             if(balls[i].main_ball_position_y(window) > window.getSize().y)
                 {
                     balls.erase(balls.begin() + i);
+                    fail_ball_sound.play();
                 }
 
             for(int j = 0; j < board_blocks.size(); j++)
@@ -313,12 +729,13 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                         balls[i].main_ball_position_x(window) + balls[i].main_ball_global_bounds_w(window) > board_blocks[0].move_board_position_x(window) &&
                         balls[i].main_ball_position_x(window) < board_blocks[board_blocks.size() - 1].move_board_position_x(window) + board_blocks[j].move_board_global_bounds_w(window))
                         {
-                            std::cout<<"board_blocks.size()  = "<<board_blocks.size()<<" ---- I = "<<i<<std::endl;
+                            col_board_sound.play();
                             if(balls[i].main_ball_position_x(window) + balls[i].main_ball_global_bounds_w(window)
                             > board_blocks[0].move_board_position_x(window) &&
                             balls[i].main_ball_position_x(window) + balls[i].main_ball_global_bounds_w(window)
                             < board_blocks[0].move_board_position_x(window) + board_blocks[0].move_board_global_bounds_w(window))
                                 {
+                                    balls[i].error_ball(window, board_blocks[0].move_board_position_y(window));
                                     balls[i].main_ball_radius_colision_in(window, board_blocks[j].move_board_radius(window));
                                     balls[i].colision_main_ball_board_x(window);
                                     balls[i].colision_main_ball_board(window, 0);
@@ -330,11 +747,13 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                             balls[i].main_ball_position_x(window)
                             < board_blocks[board_blocks.size() - 1].move_board_position_x(window) + board_blocks[board_blocks.size() - 1].move_board_global_bounds_w(window))
                                 {
+                                    balls[i].error_ball(window, board_blocks[0].move_board_position_y(window));
                                     balls[i].main_ball_radius_colision_in(window, board_blocks[j].move_board_radius(window));
                                     balls[i].colision_main_ball_board_x(window);
                                     balls[i].colision_main_ball_board(window, 0);
                                     break;
                                 }
+                            balls[i].error_ball(window, board_blocks[0].move_board_position_y(window));
                             balls[i].main_ball_radius_colision_in(window, board_blocks[j].move_board_radius(window));
                             balls[i].colision_main_ball_board(window, 0);
                             break;
@@ -356,18 +775,18 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                        balls[i].main_ball_position_x(window) <= enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window) &&
                        balls[i].main_ball_position_x(window) + balls[i].main_ball_global_bounds_w(window) >= enemies[j].enemy_pos_x(window)         )
                         {
+                            ball_enemy_sound.play();
                             if(balls[i].main_ball_position_y(window) <= enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window) &&
                                balls[i].main_ball_position_y(window) >= enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window) - ball_real_speed_y &&
                                balls[i].main_ball_position_x(window) + balls[i].main_ball_global_bounds_w(window) >= enemies[j].enemy_pos_x(window) + ball_real_speed_x &&
                                balls[i].main_ball_position_x(window) <= enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window) - ball_real_speed_x)
                                     {
-                                        std::cout<<"dol =  "<<balls[i].main_ball_position_x(window)<<"   J  =  " << j <<std::endl;
                                         balls[i].colision_main_ball_board(window, 0);
                                         enemies_die.push_back(Animations(window, &fire, (enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window)/2),
                                                                          (enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window)/2), enemies[j].HP_enemy_out(window)));
                                         if(enemies[j].HP_enemy_reduce(window) <= 0)
                                             {
-                                                your_point = your_point + enemies[j].HP_enemy_out(window);
+                                                your_point = your_point + (enemies[j].HP_enemy_out(window) * difficulty->load_board_lvl(window, 3));
                                                 bonus_ini(window, enemies[j].enemy_bonus(window), enemies[j].enemy_punish(window),
                                                           enemies[j].enemy_pos_x(window), enemies[j].enemy_pos_y(window));
                                                 enemies.erase(enemies.begin() + j);
@@ -381,13 +800,12 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                                     balls[i].main_ball_position_x(window) + balls[i].main_ball_global_bounds_w(window) >= enemies[j].enemy_pos_x(window) + ball_real_speed_x &&
                                     balls[i].main_ball_position_x(window) <= enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window) - ball_real_speed_x)
                                         {
-                                            std::cout<<"gora =  "<<balls[i].main_ball_position_x(window)<<"   J  =  " << j<<std::endl;
                                             balls[i].colision_main_ball_board(window, 0);
                                             enemies_die.push_back(Animations(window, &fire, (enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window)/2),
                                                                              (enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window)/2), enemies[j].HP_enemy_out(window)));
                                             if(enemies[j].HP_enemy_reduce(window) <= 0)
                                             {
-                                                your_point = your_point + enemies[j].HP_enemy_out(window);
+                                                your_point = your_point + (enemies[j].HP_enemy_out(window) * difficulty->load_board_lvl(window, 3));
                                                 bonus_ini(window, enemies[j].enemy_bonus(window), enemies[j].enemy_punish(window),
                                                           enemies[j].enemy_pos_x(window), enemies[j].enemy_pos_y(window));
                                                 enemies.erase(enemies.begin() + j);
@@ -400,13 +818,12 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                                     balls[i].main_ball_position_y(window) <= enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window) - ball_real_speed_y  &&
                                     balls[i].main_ball_position_y(window) + balls[i].main_ball_global_bounds_h(window) > enemies[j].enemy_pos_y(window) + ball_real_speed_y)
                                         {
-                                            std::cout<<"lewo =  "<<balls[i].main_ball_position_x(window)<<"   J  =  " << j<<std::endl;
                                             balls[i].colision_main_ball_board_x(window);
                                             enemies_die.push_back(Animations(window, &fire, (enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window)/2),
                                                                              (enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window)/2), enemies[j].HP_enemy_out(window)));
                                             if(enemies[j].HP_enemy_reduce(window) <= 0)
                                             {
-                                                your_point = your_point + enemies[j].HP_enemy_out(window);
+                                                your_point = your_point + (enemies[j].HP_enemy_out(window) * difficulty->load_board_lvl(window, 3));
                                                 bonus_ini(window, enemies[j].enemy_bonus(window), enemies[j].enemy_punish(window),
                                                           enemies[j].enemy_pos_x(window), enemies[j].enemy_pos_y(window));
                                                 enemies.erase(enemies.begin() + j);
@@ -418,13 +835,12 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                                     balls[i].main_ball_position_y(window) <= enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window) - ball_real_speed_y  &&
                                     balls[i].main_ball_position_y(window) + balls[i].main_ball_global_bounds_h(window) > enemies[j].enemy_pos_y(window) + ball_real_speed_y)
                                         {
-                                            std::cout<<"prawo =  "<<balls[i].main_ball_position_x(window)<<"   J  =  " << j<<std::endl;
                                             balls[i].colision_main_ball_board_x(window);
                                             enemies_die.push_back(Animations(window, &fire, (enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window)/2),
                                                                              (enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window)/2), enemies[j].HP_enemy_out(window)));
                                             if(enemies[j].HP_enemy_reduce(window) <= 0)
                                             {
-                                                your_point = your_point + enemies[j].HP_enemy_out(window);
+                                                your_point = your_point + (enemies[j].HP_enemy_out(window) * difficulty->load_board_lvl(window, 3));
                                                 bonus_ini(window, enemies[j].enemy_bonus(window), enemies[j].enemy_punish(window),
                                                           enemies[j].enemy_pos_x(window), enemies[j].enemy_pos_y(window));
                                                 enemies.erase(enemies.begin() + j);
@@ -437,14 +853,13 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                                         balls[i].main_ball_position_y(window) + balls[i].main_ball_global_bounds_h(window) > enemies[j].enemy_pos_y(window) &&
                                         balls[i].main_ball_position_y(window) + balls[i].main_ball_global_bounds_h(window) < enemies[j].enemy_pos_y(window) + ball_real_speed_y)
                                         {
-                                            std::cout<<"skos - lewy - gora =  "<<balls[i].main_ball_position_x(window)<<"   J  =  " << j<<std::endl;
                                             balls[i].colision_main_ball_board_x(window);
                                             balls[i].colision_main_ball_board(window, 0);
                                             enemies_die.push_back(Animations(window, &fire, (enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window)/2),
                                                                              (enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window)/2), enemies[j].HP_enemy_out(window)));
                                             if(enemies[j].HP_enemy_reduce(window) <= 0)
                                             {
-                                                your_point = your_point + enemies[j].HP_enemy_out(window);
+                                                your_point = your_point + (enemies[j].HP_enemy_out(window) * difficulty->load_board_lvl(window, 3));
                                                 bonus_ini(window, enemies[j].enemy_bonus(window), enemies[j].enemy_punish(window),
                                                           enemies[j].enemy_pos_x(window), enemies[j].enemy_pos_y(window));
                                                 enemies.erase(enemies.begin() + j);
@@ -457,14 +872,13 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                                         balls[i].main_ball_position_y(window) < enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window) &&
                                         balls[i].main_ball_position_y(window) > enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window) - ball_real_speed_y)
                                         {
-                                            std::cout<<"skos - lewy - dol =  "<<balls[i].main_ball_position_x(window)<<"   J  =  " << j<<std::endl;
                                             balls[i].colision_main_ball_board_x(window);
                                             balls[i].colision_main_ball_board(window, 0);
                                             enemies_die.push_back(Animations(window, &fire, (enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window)/2),
                                                                              (enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window)/2), enemies[j].HP_enemy_out(window)));
                                             if(enemies[j].HP_enemy_reduce(window) <= 0)
                                             {
-                                                your_point = your_point + enemies[j].HP_enemy_out(window);
+                                                your_point = your_point + (enemies[j].HP_enemy_out(window) * difficulty->load_board_lvl(window, 3));
                                                 bonus_ini(window, enemies[j].enemy_bonus(window), enemies[j].enemy_punish(window),
                                                           enemies[j].enemy_pos_x(window), enemies[j].enemy_pos_y(window));
                                                 enemies.erase(enemies.begin() + j);
@@ -477,14 +891,13 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                                      balls[i].main_ball_position_y(window) + balls[i].main_ball_global_bounds_h(window) > enemies[j].enemy_pos_y(window) &&
                                      balls[i].main_ball_position_y(window) + balls[i].main_ball_global_bounds_h(window) < enemies[j].enemy_pos_y(window) + ball_real_speed_y)
                                         {
-                                            std::cout<<"skos - prawy - gora =  "<<balls[i].main_ball_position_x(window)<<"   J  =  " << j<<std::endl;
                                             balls[i].colision_main_ball_board_x(window);
                                             balls[i].colision_main_ball_board(window, 0);
                                             enemies_die.push_back(Animations(window, &fire, (enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window)/2),
                                                                              (enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window)/2), enemies[j].HP_enemy_out(window)));
                                             if(enemies[j].HP_enemy_reduce(window) <= 0)
                                             {
-                                                your_point = your_point + enemies[j].HP_enemy_out(window);
+                                                your_point = your_point + (enemies[j].HP_enemy_out(window) * difficulty->load_board_lvl(window, 3));
                                                 bonus_ini(window, enemies[j].enemy_bonus(window), enemies[j].enemy_punish(window),
                                                           enemies[j].enemy_pos_x(window), enemies[j].enemy_pos_y(window));
                                                 enemies.erase(enemies.begin() + j);
@@ -497,14 +910,13 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
                                      balls[i].main_ball_position_y(window) < enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window) &&
                                      balls[i].main_ball_position_y(window) > enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window) - ball_real_speed_y)
                                         {
-                                            std::cout<<"skos - prawy - dol =  "<<balls[i].main_ball_position_x(window)<<"   J  =  " << j<<std::endl;
                                             balls[i].colision_main_ball_board_x(window);
                                             balls[i].colision_main_ball_board(window, 0);
                                             enemies_die.push_back(Animations(window, &fire, (enemies[j].enemy_pos_x(window) + enemies[j].enemy_global_w(window)/2),
                                                                              (enemies[j].enemy_pos_y(window) + enemies[j].enemy_global_h(window)/2), enemies[j].HP_enemy_out(window)));
                                             if(enemies[j].HP_enemy_reduce(window) <= 0)
                                             {
-                                                your_point = your_point + enemies[j].HP_enemy_out(window);
+                                                your_point = your_point + (enemies[j].HP_enemy_out(window) * difficulty->load_board_lvl(window, 3));
                                                 bonus_ini(window, enemies[j].enemy_bonus(window), enemies[j].enemy_punish(window),
                                                           enemies[j].enemy_pos_x(window), enemies[j].enemy_pos_y(window));
                                                 enemies.erase(enemies.begin() + j);
@@ -525,6 +937,10 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
             if(text_ann[i].animation_text(window) == 0)
                 {
                     text_ann.erase(text_ann.begin() + i);
+                    for(int j = 0; j < text_ann.size(); j++)
+                        {
+                            text_ann[j].move_up(window);
+                        }
                 }
         }
 
@@ -532,6 +948,9 @@ void Game_objects_ini::colision_objects(sf::RenderWindow &window)
           {
               enemies[i].enemy_update(window, &stage1, &stage2, &stage3, &stage4);
           }
+
+    delete difficulty;
+    difficulty = 0;
 }
 
 void Game_objects_ini::board_move_left(sf::RenderWindow &window)
@@ -581,7 +1000,82 @@ void Game_objects_ini::board_move_right(sf::RenderWindow &window)
 
 void Game_objects_ini::object_setings(sf::RenderWindow &window)
 {
+    this->enemy_scale_x = window.getSize().x/3000.0;
+    this->enemy_scale_y = window.getSize().y/2400.0;
+    this->size_enemy_x = 190.0 * enemy_scale_x;
+    this->size_enemy_y = 8;
+    this->how_many_columns_enemy = ((window.getSize().x/2 - (2 * size_enemy_x))/size_enemy_x) * 2;
+    this->min_delete = 0;
+    this->top_size = 130;
+    this->left_size = window.getSize().x/2 - ((how_many_columns_enemy % 2) * (size_enemy_x)/2) - how_many_columns_enemy/2*size_enemy_x;
+    this->balls_temp_x = 0;
+    this->balls_temp_y = 0;
+    this->for_s = ball_speed;
+    this->ball_real_speed_x = ball_speed;
+    this->ball_real_speed_y = ball_speed;
+    this->level = 1;
+    this->position_board = window.getSize().x/2;
+    this->size_board_index = window.getSize().x/60;
+    this->reverse_ball_board = size_board_index/70.0;
+    this->reverse_ball_board_temp = 0;
+    this->wall_size = 0;
 
+    Save_load best_score;
+    points.push_back(Text_ini(window, &font_points, "00000000", "YOUR SCORE", posX_point, posY_point));
+    points.push_back(Text_ini(window, &font_points, best_score.best_score(window), "BEST SCORE", posX_best, posY_best));
+
+    this->max_lifes = 10;
+    Save_load* difficulty = new Save_load;
+
+    if(difficulty->load_board_lvl(window, 3) == 1)
+        {
+            this->start_life = 5;
+            this->ball_speed = 2;
+        }
+
+    else if(difficulty->load_board_lvl(window, 3) == 2)
+        {
+            this->start_life = 4;
+            this->ball_speed = 4;
+        }
+
+    else if(difficulty->load_board_lvl(window, 3) == 3)
+        {
+            this->start_life = 3;
+            this->ball_speed = 6;
+        }
+
+    this->bonuses_index = 0;
+
+    this->your_point = 0;
+    this->time_fun_temp = 1;
+
+    this->space_press_index = false;
+
+    this->time_check = 0;
+    this->shoot_enabled == false;
+    this->level_end = false;
+    this->ann_level = false;
+    this->ann_summary = false;
+    this->system_game_over = false;
+    this->system_game_over_ini = false;
+    this->music_play = false;
+    this->lvl_play = false;
+
+    board_ini(window);
+    balls_ini(window);
+    enemies_ini(window);
+    life_ini(window);
+    life_check_add(window);
+    text_ann.push_back(Text_ini(window, &font_ann, "PRESS 'SPACE' BUTTON TO START", text_ann.size()));
+
+    for(int i = 0; i < summary.size(); i++)
+        {
+            summary.erase(summary.begin(), summary.end());
+        }
+
+    delete difficulty;
+    difficulty = 0;
 }
 
 void Game_objects_ini::bonus_ini(sf::RenderWindow &window, int bonus, int punish, int posX, int posY)
@@ -609,7 +1103,7 @@ void Game_objects_ini::bonus_ini(sf::RenderWindow &window, int bonus, int punish
 void Game_objects_ini::shooting_start(sf::RenderWindow &window)
 {
     time_shooting = clock_shooting.getElapsedTime();
-    std::cout<<time_shooting.asMilliseconds()<< "  -------  " << shoot_enabled<< std::endl;
+
     if(shoot_enabled == true)
         {
             if(time_shooting.asMilliseconds() <= 10000.0)
@@ -621,6 +1115,7 @@ void Game_objects_ini::shooting_start(sf::RenderWindow &window)
                                     if(i == 1)
                                         {
                                             shots.push_back(Shooting(window, &bullet, board_blocks[1].move_board_position_x(window), board_blocks[1].move_board_position_y(window)));
+                                            shoot_sound.play();
                                         }
 
                                     if(i == board_blocks.size() - 2)
@@ -642,6 +1137,7 @@ void Game_objects_ini::shooting_start(sf::RenderWindow &window)
 
 void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
 {
+    Save_load* difficulty = new Save_load;
     for(int i = 0; i < bonuses.size(); i++)
         {
             bonuses[i].move_bonus(window);
@@ -653,12 +1149,12 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
                         bonuses[i].posX_bonus(window) + bonuses[i].global_x_bonus(window) > board_blocks[0].move_board_position_x(window) &&
                         bonuses[i].posX_bonus(window) < board_blocks[board_blocks.size() - 1].move_board_position_x(window) + board_blocks[j].move_board_global_bounds_w(window))
                             {
+                                bonus_sound.play();
                                 for(int z = 0; z < 1; z++)
                                     {
-
                                         if(bonuses_index == 1)
                                             {
-                                                your_point = your_point + 5;
+                                                your_point = your_point + (2 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "Missles tun on, press right mouse button to use", text_ann.size()));
                                                 clock_shooting.restart();
                                                 time_check = 0;
@@ -667,7 +1163,7 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
 
                                         else if(bonuses_index == 2)
                                             {
-                                                your_point = your_point + 5;
+                                                your_point = your_point + (2 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "Your board in growing up", text_ann.size()));
                                                 position_board = board_blocks[0].move_board_position_x(window);
                                                 board_blocks.erase(board_blocks.begin(), board_blocks.end());
@@ -677,22 +1173,26 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
 
                                         else if(bonuses_index == 3)
                                             {
-                                                your_point = your_point + 5;
+                                                your_point = your_point + (2 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "EXTRA BALL !!!", text_ann.size()));
                                                 balls.push_back(Ball(window, &ball_red));
                                             }
 
                                         else if(bonuses_index == 4)
                                             {
-                                                your_point = your_point + 5;
+                                                your_point = your_point + (2 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "EXTRA LIFE !!!", text_ann.size()));
                                                 start_life++;
+                                                if(start_life >= 10)
+                                                    {
+                                                        start_life = 10;
+                                                    }
                                                 life_check_add(window);
                                             }
 
                                         else if(bonuses_index == 5)
                                             {
-                                                your_point = your_point + 5;
+                                                your_point = your_point + (2 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "WALL PROTECTED", text_ann.size()));
                                                 for(int z = 0; z < how_many_walls; z++)
                                                     {
@@ -703,7 +1203,7 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
 
                                         else if(bonuses_index == 1001)
                                             {
-                                                your_point = your_point + 7;
+                                                your_point = your_point + (3 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "Your board is shrinks", text_ann.size()));
                                                 position_board = board_blocks[0].move_board_position_x(window);
                                                 board_blocks.erase(board_blocks.begin(), board_blocks.end());
@@ -713,7 +1213,7 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
 
                                         else if(bonuses_index == 1002)
                                             {
-                                                your_point = your_point + 7;
+                                                your_point = your_point + (3 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "RANDOM !!!", text_ann.size()));
                                                 int temp = ( std::rand() % 8 / level ) + 1;
                                                 if(temp == 1)
@@ -767,7 +1267,7 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
 
                                         else if(bonuses_index == 1003)
                                             {
-                                                your_point = your_point + 7;
+                                                your_point = your_point + (3 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "RANDOM small or big board", text_ann.size()));
                                                 int temp = ( std::rand() % 2 / level ) + 1;
                                                 if(temp == 1)
@@ -785,7 +1285,7 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
 
                                         else if(bonuses_index == 1004)
                                             {
-                                                your_point = your_point + 7;
+                                                your_point = your_point + (3 * difficulty->load_board_lvl(window, 3));
                                                 text_ann.push_back(Text_ini(window, &font_ann, "SLOW BOARD !!!", text_ann.size()));
                                                 for(int a = 0; a < board_blocks.size(); a++)
                                                 {
@@ -793,7 +1293,6 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
                                                     board_blocks[a].change_board_speed(window, true);
                                                 }
                                             }
-
                                     }
                                     bonuses.erase(bonuses.begin() + i);
                                     break;
@@ -807,7 +1306,37 @@ void Game_objects_ini::colision_bonuses(sf::RenderWindow &window)
                            }
                 }
         }
+
+    delete difficulty;
+    difficulty = 0;
 }
+
+void Game_objects_ini::sound_ini(sf::RenderWindow &window)
+{
+    //----------------------------- MUSIC IN BACK ------------------------------
+    music.openFromFile("Sounds/music.wav");
+    music.setLoop(true);
+	music.setVolume(30);
+    //----------------------------- COLLISION BOARD ----------------------------
+    col_board.loadFromFile("Sounds/collision_board.wav");
+    col_board_sound.setBuffer(col_board);
+    //----------------------------- COLLISION ENEMY ----------------------------
+    ball_enemy.loadFromFile("Sounds/collision_enemy.wav");
+    ball_enemy_sound.setBuffer(ball_enemy);
+    //----------------------------- FAIL BALL ----------------------------------
+    fail_ball.loadFromFile("Sounds/ball_fail.wav");
+    fail_ball_sound.setBuffer(fail_ball);
+    //----------------------------- BONUS ----------------------------------
+    bonus_buff.loadFromFile("Sounds/bonus.wav");
+    bonus_sound.setBuffer(bonus_buff);
+    //----------------------------- SHOOTING ----------------------------------
+    shoot_buff.loadFromFile("Sounds/shooting.wav");
+    shoot_sound.setBuffer(shoot_buff);
+    //----------------------------- LEVEL FINISH ----------------------------------
+    lvl_buff.loadFromFile("Sounds/level.wav");
+    lvl_sound.setBuffer(lvl_buff);
+}
+
 
 void Game_objects_ini::draw_game_objects(sf::RenderWindow &window)
 {
@@ -855,6 +1384,14 @@ void Game_objects_ini::draw_game_objects(sf::RenderWindow &window)
         {
             text_ann[i].draw_text(window);
         }
-    points[0].draw_text(window);
-    points[1].draw_text(window);
+
+    for(int i = 0; i < summary.size(); i++)
+        {
+            summary[i].draw_summary(window);
+        }
+
+    for(int i = 0; i < points.size(); i++)
+        {
+            points[i].draw_text(window);
+        }
 }

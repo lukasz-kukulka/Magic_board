@@ -1,5 +1,4 @@
 #include "menu_button.h"
-#include <windows.h>
 
 Menu_button::Menu_button(sf::RenderWindow &window, sf::Font *font, std::string name = "TEST")
 {
@@ -11,7 +10,6 @@ Menu_button::Menu_button(sf::RenderWindow &window, sf::Font *font, std::string n
     this->button_menu.setOutlineThickness(1);
     this->button_menu.setOutlineColor(sf::Color(0, 0, 0));
     this->button_menu.setFillColor(sf::Color(111, 111, 111, 111));
-
 
     this->text_button.setFont(*font);
     this->text_button.setCharacterSize(button_menu.getSize().y - button_menu.getSize().y/5);
@@ -25,7 +23,6 @@ Menu_button::Menu_button(sf::RenderWindow &window, sf::Font *font, std::string n
     this->menu_index = no_menu_options;
     this->scale_index_button = button_menu.getSize().x/200;
 
-
     this->scale_index_text = 254;
 }
 
@@ -38,8 +35,6 @@ Menu_button::Menu_button(std::string name, sf::RenderWindow &window, sf::Font *f
     this->button_shape.setOutlineThickness(1);
     this->button_shape.setOutlineColor(sf::Color(0, 0, 0));
     this->button_shape.setFillColor(sf::Color(111, 111, 111, 55));
-
-
 
     this->button_text.setFont(*font);
     this->button_text.setCharacterSize(window.getSize().x/50);
@@ -60,23 +55,23 @@ int Menu_button::touch_button(sf::RenderWindow &window, sf::Vector2i mouse)
             this->button_menu.setScale(1, 1);
             if(mouse.x > button_menu.getPosition().x  && mouse.x < button_menu.getPosition().x + button_menu.getGlobalBounds().width &&
                     mouse.y > button_menu.getPosition().y  && mouse.y < button_menu.getPosition().y - 6 + button_menu.getGlobalBounds().height)
-                {
-                    this->button_menu.setScale(1.1, 1.1);
-                    this->button_menu.setPosition(window.getSize().x/2 - button_menu.getGlobalBounds().width/2, button_menu.getPosition().y);
-                    this->text_button.setScale(1.1, 1.1);
-                    this->text_button.setFillColor(sf::Color(222, 0, 0));
-                    this->text_button.setPosition(window.getSize().x/2 - text_button.getGlobalBounds().width/2, button_menu.getPosition().y);
-                    this->button_menu.setFillColor(sf::Color(111, 111, 111, 200));
+                    {
+                        this->button_menu.setScale(1.1, 1.1);
+                        this->button_menu.setPosition(window.getSize().x/2 - button_menu.getGlobalBounds().width/2, button_menu.getPosition().y);
+                        this->text_button.setScale(1.1, 1.1);
+                        this->text_button.setFillColor(sf::Color(222, 0, 0));
+                        this->text_button.setPosition(window.getSize().x/2 - text_button.getGlobalBounds().width/2, button_menu.getPosition().y);
+                        this->button_menu.setFillColor(sf::Color(111, 111, 111, 200));
 
-                    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                        {
-                            this->button_menu.setFillColor(sf::Color(255, 111, 0, 255));
-                            this->text_button.setFillColor(sf::Color(222, 0, 0));
-                            this->text_button.setScale(1, 1);
-                            this->button_menu.setScale(1, 1);
-                            return menu_index;
-                        }
-                }
+                        if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                            {
+                                this->button_menu.setFillColor(sf::Color(255, 111, 0, 255));
+                                this->text_button.setFillColor(sf::Color(222, 0, 0));
+                                this->text_button.setScale(1, 1);
+                                this->button_menu.setScale(1, 1);
+                                return menu_index;
+                            }
+                    }
 
             else
                 {
@@ -99,6 +94,8 @@ int Menu_button::back_save_button(sf::RenderWindow &window, sf::Vector2i mouse, 
             if(mouse.x > button_shape.getPosition().x  && mouse.x < button_shape.getPosition().x + button_shape.getGlobalBounds().width &&
                     mouse.y > button_shape.getPosition().y  && mouse.y < button_shape.getPosition().y - 6 + button_shape.getGlobalBounds().height)
                 {
+
+
                     this->button_shape.setScale(1.1, 1.1);
                     this->button_text.setScale(1.1, 1.1);
 
@@ -120,7 +117,6 @@ int Menu_button::back_save_button(sf::RenderWindow &window, sf::Vector2i mouse, 
 
 int Menu_button::animation_button_off(sf::RenderWindow &window, sf::Vector2i mouse)
 {
-
     if(button_menu.getSize().x > 0)
         {
             if(scale_index_text > 0)
@@ -129,6 +125,7 @@ int Menu_button::animation_button_off(sf::RenderWindow &window, sf::Vector2i mou
                     this->text_button.setFillColor(sf::Color(0, 222, 0, scale_index_text));
                     this->text_button.setOutlineColor(sf::Color(0, 0, 0, scale_index_text));
                 }
+
             else
                 {
                     this->text_button.setScale(0,0);
@@ -147,31 +144,31 @@ int Menu_button::animation_button_off(sf::RenderWindow &window, sf::Vector2i mou
 
 int Menu_button::animation_button_on(sf::RenderWindow &window)
 {
+    if(button_menu.getSize().x < window.getSize().x/5*2)
+        {
+            this->button_menu.setFillColor(sf::Color(111, 111, 111, 111));
+            this->text_button.setScale(1, 1);
+            this->button_menu.setSize(sf::Vector2f(button_menu.getSize().x, window.getSize().y/25));
 
-            if(button_menu.getSize().x < window.getSize().x/5*2)
+            if(scale_index_text <= 253)
                 {
-                    this->button_menu.setFillColor(sf::Color(111, 111, 111, 111));
-                    this->text_button.setScale(1, 1);
-                    this->button_menu.setSize(sf::Vector2f(button_menu.getSize().x, window.getSize().y/25));
-                    if(scale_index_text <= 253)
-                        {
-                            this->scale_index_text = scale_index_text + 1 * 1.1;
-                            this->text_button.setFillColor(sf::Color(0, 222, 0, scale_index_text));
-                            this->text_button.setOutlineColor(sf::Color(0, 0, 0, scale_index_text));
-                        }
-                    else
-                        {
-                            this->text_button.setScale(1,1);
-                        }
-                    this->button_menu.setSize(sf::Vector2f(button_menu.getSize().x + scale_index_button, button_menu.getSize().y));
-                    this->button_menu.setPosition(window.getSize().x/2 - button_menu.getGlobalBounds().width/2, button_menu.getPosition().y);
+                    this->scale_index_text = scale_index_text + 1 * 1.1;
+                    this->text_button.setFillColor(sf::Color(0, 222, 0, scale_index_text));
+                    this->text_button.setOutlineColor(sf::Color(0, 0, 0, scale_index_text));
                 }
-
             else
                 {
-                    this->text_button.setScale(1, 1);
-                    return 44;
+                    this->text_button.setScale(1,1);
                 }
+            this->button_menu.setSize(sf::Vector2f(button_menu.getSize().x + scale_index_button, button_menu.getSize().y));
+            this->button_menu.setPosition(window.getSize().x/2 - button_menu.getGlobalBounds().width/2, button_menu.getPosition().y);
+        }
+
+    else
+        {
+            this->text_button.setScale(1, 1);
+            return 44;
+        }
 }
 
 void Menu_button::show_button(sf::RenderWindow &window, sf::Vector2i mouse)

@@ -10,21 +10,18 @@ class Shooting
 {
 public:
 
-     Shooting(sf::RenderWindow &window, sf::Texture *texture, int, int);
+    Shooting(sf::RenderWindow &window, sf::Texture *texture, int, int);
+    ~Shooting();
 
-     ~Shooting();
-
-     void draw_shot(sf::RenderWindow &window);
-     void bullet_move(sf::RenderWindow &window);
-     int shot_pos_x(sf::RenderWindow &window);
-     int shot_pos_y(sf::RenderWindow &window);
-     int shot_global_x(sf::RenderWindow &window);
-
-
-
+    void draw_shot(sf::RenderWindow &window);
+    void bullet_move(sf::RenderWindow &window);
+    int shot_pos_x(sf::RenderWindow &window);
+    int shot_pos_y(sf::RenderWindow &window);
+    int shot_global_x(sf::RenderWindow &window);
 
 private:
-    sf::Sprite single_shot;
 
+    sf::Sprite single_shot;
 };
+
 #endif

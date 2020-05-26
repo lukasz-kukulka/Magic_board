@@ -9,7 +9,6 @@ Boards::Boards(sf::RenderWindow &window, sf::Texture *texture, int size_board, f
     this->radius = radius;
     this->board_sprite.setTexture(*texture);
     this->board_sprite.setPosition(position + board_sprite.getGlobalBounds().width * size_board, window.getSize().y/8*7);
-
 }
 
 Boards::~Boards(){}

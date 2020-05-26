@@ -1,6 +1,8 @@
 #ifndef CREDITS_H
 #define CREDITS_H
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 
 class Credits
 {
@@ -16,10 +18,10 @@ public:
     void inaccessible(sf::RenderWindow &window, int);
 
 private:
+
     sf::Font credits_font;
     sf::Text credits_text;
     int text_size;
-
 };
 
 #endif

@@ -16,7 +16,6 @@ Bonus::Bonus(sf::RenderWindow &window, sf::Texture *texture, int repeat, int poz
     this->wall_sprite.setTexture(*texture);
     this->wall_sprite.setScale(scale, scale);
     this->wall_sprite.setPosition(pozX + wall_sprite.getGlobalBounds().width * repeat, pozY);
-    std::cout<<"wall_sprite "<<std::endl;
 }
 
 

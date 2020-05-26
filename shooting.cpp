@@ -4,10 +4,8 @@
 
 Shooting::Shooting(sf::RenderWindow &window, sf::Texture *texture, int pozX, int pozY)
 {
-    std::cout<<" IN SHOOTING konstruktor"<<std::endl;
     this->single_shot.setTexture(*texture);
     this->single_shot.setPosition(pozX, pozY);
-
 }
 
 Shooting::~Shooting(){}

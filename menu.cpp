@@ -17,26 +17,26 @@ Menu::Menu(sf::RenderWindow &window, sf::Vector2i mouse, int return_menu_button,
     this->otama_font.loadFromFile("Fonts/otama.otf");
     this->SF_Italic.loadFromFile("Fonts/SF_Italic.ttf");
     this->SF_Extended.loadFromFile("Fonts/SF_Extended.ttf");
-//--------------------------------------------------------------------------------FONT INI END------------------------------------------------------------
-//---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //--------------------------------------------------------------------------------BACKGROUNG INI------------------------------------------------------------
     this->backgroud.loadFromFile("Textures/background1.jpg");
+    this->logo.loadFromFile("Textures/logo.png");
+    this->logo_sprite.setTexture(logo);
+    this->logo_sprite.setScale(window.getSize().x / 750, window.getSize().x / 750);
+    this->logo_sprite.setPosition(window.getSize().x/2 - logo_sprite.getGlobalBounds().width/2, 70);
     this->backgroud_menu.setTexture(backgroud);
     this->backgroud_menu.setPosition(0.0f, 0.0f);
-//--------------------------------------------------------------------------------BACKGROUND INI END------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //--------------------------------------------------------------------------------BUTTONS MENU INI------------------------------------------------------------
     menu_options_class.push_back(Menu_button(window, &font, "New game"));
     menu_options_class.push_back(Menu_button(window, &font, "High score"));
     menu_options_class.push_back(Menu_button(window, &font, "Options"));
     menu_options_class.push_back(Menu_button(window, &font, "Credits"));
     menu_options_class.push_back(Menu_button(window, &font, "Exit"));
-//--------------------------------------------------------------------------------BUTTONS MENU INI END------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //--------------------------------------------------------------------------------BACK BUTTON INI ----------------------------------------------------------------------
     menu_options_class.push_back(Menu_button("Back", window, &otama_font, 1000));
-//--------------------------------------------------------------------------------BACK BUTTON INI END------------------------------------------------------------
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //--------------------------------------------------------------------------------CREDITS SUBTITLES INI-------------------------------------------------------------------
     credits_class.push_back(Credits(window, &SF_Italic, "DIRECTOR", 20, 300));
     credits_class.push_back(Credits(window, &SF_Extended, "Lukasz Kukulka", 15, 100));
@@ -46,8 +46,7 @@ Menu::Menu(sf::RenderWindow &window, sf::Vector2i mouse, int return_menu_button,
     credits_class.push_back(Credits(window, &SF_Extended, "Lukasz Kukulka", 15, 100));
     credits_class.push_back(Credits(window, &SF_Italic, "EDITOR", 20, 300));
     credits_class.push_back(Credits(window, &SF_Extended, "Lukasz Kukulka", 15, 100));
-//--------------------------------------------------------------------------------CREDITS SUBTITLES INI------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
     records = 0;   // HELP VARIABLE TO INITIALIZE OBJECT TABLE HIGH SCORE
 }
 Menu::~Menu(){}
@@ -64,7 +63,6 @@ int Menu::menu_option_if(sf::RenderWindow &window, sf::Vector2i mouse, int retur
 {
     for(int i = 0; i < menu_options_class.size(); i++)
         {
-
             if(menu_options_class[i].touch_button(window, mouse) > 0 && menu_options_class[i].touch_button(window, mouse) <=5)
                 {
                     return_menu_button = menu_options_class[i].touch_button(window, mouse);
@@ -82,7 +80,6 @@ int Menu::menu_option_if(sf::RenderWindow &window, sf::Vector2i mouse, int retur
                     menu_options_class[i].animation_button_on(window);
                     if(menu_options_class[i].animation_button_on(window) == 44)
                         {
-                            std::cout<<"0.  00  "<<std::endl;
                         }
                 }
 
@@ -91,7 +88,6 @@ int Menu::menu_option_if(sf::RenderWindow &window, sf::Vector2i mouse, int retur
                     menu_options_class[i].animation_button_off(window, mouse);
                     if(menu_options_class[i].animation_button_off(window, mouse) == 55)
                         {
-                            std::cout<<"1.    "<<std::endl;
                         }
                 }
 
@@ -101,7 +97,6 @@ int Menu::menu_option_if(sf::RenderWindow &window, sf::Vector2i mouse, int retur
                     if(menu_options_class[i].animation_button_off(window, mouse) == 55)
                         {
                             return_menu_button = menu_options_class[i].back_save_button(window, mouse, return_menu_button);
-                            std::cout<<"2.    "<<std::endl;
                             if(records == 0)
                             {
                                 load_records.load_score(window, &otama_font);
@@ -116,9 +111,7 @@ int Menu::menu_option_if(sf::RenderWindow &window, sf::Vector2i mouse, int retur
                     menu_options_class[i].animation_button_off(window, mouse);
                     if(menu_options_class[i].animation_button_off(window, mouse) == 55)
                         {
-
                             return_menu_button = options_class.basic(window, mouse, return_menu_button);
-                            std::cout<<"3.    "<<std::endl;
                         }
                 }
 
@@ -140,12 +133,6 @@ int Menu::menu_option_if(sf::RenderWindow &window, sf::Vector2i mouse, int retur
                             menu_button_exit(window);
                         }
                 }
-
-            else if(return_menu_button > 5)/////DELETE IN THE END
-                {
-                    std::cout<<"6. ERROR ERROR ERROR   "<<std::endl;
-                    return_menu_button = 0;
-                }
         }
 
     return return_menu_button;
@@ -160,6 +147,7 @@ void Menu::draw_menu(sf::RenderWindow &window, sf::Vector2i mouse, int menu_opti
 {
 
     window.draw(backgroud_menu);
+    window.draw(logo_sprite);
     window.draw(back_button);
     window.draw(back_text);
     window.draw(lukasz_kukulka);

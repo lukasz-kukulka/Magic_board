@@ -34,7 +34,6 @@ private:
     std::vector<Backgroung_game>corners;
     std::vector<Backgroung_game>quads;
     std::vector<Backgroung_game>squares;
-
-
 };
+
 #endif

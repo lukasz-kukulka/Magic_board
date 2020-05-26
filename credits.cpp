@@ -12,8 +12,6 @@ Credits::Credits(sf::RenderWindow &window, sf::Font *font, std::string subtitles
     this->credits_text.setOutlineThickness(2);
     this->credits_text.setOutlineColor(sf::Color(0, 0, 0));
     this->credits_text.setPosition(window.getSize().x/2 - credits_text.getGlobalBounds().width/2, window.getSize().y + space_betwen);
-
-
 }
 
 Credits::~Credits(){}

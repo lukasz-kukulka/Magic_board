@@ -7,7 +7,7 @@ Ball::Ball(sf::RenderWindow &window, sf::Texture *texture)
     this->left_colision = ((window.getSize().x/2) % 32) + (66);
     this->right_colision = window.getSize().x - ((window.getSize().x % 32) + (96));
     this->ball_main.setTexture(*texture);
-    this->ball_main.setPosition(window.getSize().x/2, window.getSize().y/2);
+    this->ball_main.setPosition(( std::rand() % (window.getSize().x - 240) + 120), window.getSize().y/2);
     this->colision_change_y = 1;
     this->colision_change_x = 1;
     this->radius_colision = 0;
@@ -22,18 +22,19 @@ void Ball::move_ball(sf::RenderWindow &window, float dir_X = 1, float dir_Y = -1
 {
     real_speed_x = speed * dir_X * level;
     real_speed_y = speed * dir_Y * level;
-    if(real_speed_x <= 8)
+    if(real_speed_x > 8)
         {
-            real_speed_x = 8;
-            real_speed_y = 8;
+            real_speed_x = 8 * dir_X;
+            real_speed_y = 8 * dir_Y;
         }
     ball_main.move(real_speed_x, real_speed_y);
 }
 
 int Ball::colision_main_ball_y(sf::RenderWindow &window)
 {
-    if(ball_main.getPosition().y <= top_colision)
+    if(ball_main.getPosition().y < top_colision)
         {
+            ball_main.setPosition(ball_main.getPosition().x, top_colision);
             colision_change_y = colision_change_y * (-1);
             return colision_change_y;
         }
@@ -43,8 +44,16 @@ int Ball::colision_main_ball_y(sf::RenderWindow &window)
 
 int Ball::colision_main_ball_x(sf::RenderWindow &window)
 {
-    if(ball_main.getPosition().x <= left_colision || ball_main.getPosition().x >= right_colision)
+    if(ball_main.getPosition().x < left_colision)
         {
+            ball_main.setPosition(left_colision, ball_main.getPosition().y);
+            colision_change_x = colision_change_x * (-1);
+            return colision_change_x;
+        }
+
+    else if(ball_main.getPosition().x > right_colision)
+        {
+            ball_main.setPosition(right_colision, ball_main.getPosition().y);
             colision_change_x = colision_change_x * (-1);
             return colision_change_x;
         }
@@ -110,6 +119,10 @@ float Ball::main_ball_real_speed_y(sf::RenderWindow &window)
     return real_speed_y;
 }
 
+void Ball::error_ball(sf::RenderWindow &window, int posY)
+{
+    ball_main.setPosition(ball_main.getPosition().x, posY - ball_main.getGlobalBounds().height);
+}
 
 void Ball::draw_ball(sf::RenderWindow &window)
 {

@@ -10,16 +10,17 @@ class Score
 
 public:
 
-Score(sf::RenderWindow &window, sf::Font *font, int, int, std::string);
- ~Score();
-void draw_score(sf::RenderWindow &window);
+    Score(sf::RenderWindow &window, sf::Font *font, int, int, std::string);
+     ~Score();
+
+    void draw_score(sf::RenderWindow &window);
 
 
 private:
 
-sf::Font font;
-sf::RectangleShape score_rec;
-sf::Text text_score;
-
+    sf::Font font;
+    sf::RectangleShape score_rec;
+    sf::Text text_score;
 };
+
 #endif

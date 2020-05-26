@@ -48,7 +48,6 @@ Option_page::Option_page(sf::RenderWindow &window, sf::Vector2i mouse, int menu_
 //--------------------------------------------------------------------RESET SETINGS-------------------------------------------------------------------------------------
 
     reset_object(window, mouse, menu_option);
-
 }
 
 void Option_page::settings_ini(sf::RenderWindow &window)
@@ -84,43 +83,43 @@ void Option_page::settings_ini(sf::RenderWindow &window)
     this->screen_resolution.setOutlineColor(sf::Color(0, 0, 0));
     this->screen_resolution.setPosition(width_screen/2 - screen_resolution.getGlobalBounds().width/2 + start_draw_x, start_draw_y + 10);
 
-    this->screen_resolution800x600.setFont(otama_font);
-    this->screen_resolution800x600.setCharacterSize(window.getSize().x/35);
-    this->screen_resolution800x600.setFillColor(sf::Color(255, 255, 255));
-    this->screen_resolution800x600.setString("800x600");
-    this->screen_resolution800x600.setOutlineThickness(1);
-    this->screen_resolution800x600.setOutlineColor(sf::Color(0, 0, 0));
-    this->screen_resolution800x600.setPosition(start_draw_x + (width_screen/3)/2 - screen_resolution800x600.getGlobalBounds().width/2, screen_resolution.getPosition().y + window.getSize().y/60 + screen_resolution.getGlobalBounds().height);
+    this->screen_resolution640x800.setFont(otama_font);
+    this->screen_resolution640x800.setCharacterSize(window.getSize().x/35);
+    this->screen_resolution640x800.setFillColor(sf::Color(255, 255, 255));
+    this->screen_resolution640x800.setString("640x800");
+    this->screen_resolution640x800.setOutlineThickness(1);
+    this->screen_resolution640x800.setOutlineColor(sf::Color(0, 0, 0));
+    this->screen_resolution640x800.setPosition(start_draw_x + (width_screen/3)/2 - screen_resolution640x800.getGlobalBounds().width/2, screen_resolution.getPosition().y + window.getSize().y/60 + screen_resolution.getGlobalBounds().height);
 
-    this->screen_resolution1280x1024.setFont(otama_font);
-    this->screen_resolution1280x1024.setCharacterSize(window.getSize().x/35);
-    this->screen_resolution1280x1024.setFillColor(sf::Color(255, 255, 255));
-    this->screen_resolution1280x1024.setString("1280x1024");
-    this->screen_resolution1280x1024.setOutlineThickness(1);
-    this->screen_resolution1280x1024.setOutlineColor(sf::Color(0, 0, 0));
-    this->screen_resolution1280x1024.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3 - screen_resolution1280x1024.getGlobalBounds().width/2, screen_resolution800x600.getPosition().y);
+    this->screen_resolution800x1000.setFont(otama_font);
+    this->screen_resolution800x1000.setCharacterSize(window.getSize().x/35);
+    this->screen_resolution800x1000.setFillColor(sf::Color(255, 255, 255));
+    this->screen_resolution800x1000.setString("800x1000");
+    this->screen_resolution800x1000.setOutlineThickness(1);
+    this->screen_resolution800x1000.setOutlineColor(sf::Color(0, 0, 0));
+    this->screen_resolution800x1000.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3 - screen_resolution800x1000.getGlobalBounds().width/2, screen_resolution640x800.getPosition().y);
 
-    this->screen_resolution1920x1080.setFont(otama_font);
-    this->screen_resolution1920x1080.setCharacterSize(window.getSize().x/35);
-    this->screen_resolution1920x1080.setFillColor(sf::Color(255, 255, 255));
-    this->screen_resolution1920x1080.setString("1920x1080");
-    this->screen_resolution1920x1080.setOutlineThickness(1);
-    this->screen_resolution1920x1080.setOutlineColor(sf::Color(0, 0, 0));
-    this->screen_resolution1920x1080.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3*2 - screen_resolution1920x1080.getGlobalBounds().width/2, screen_resolution800x600.getPosition().y);
+    this->screen_resolution960x1200.setFont(otama_font);
+    this->screen_resolution960x1200.setCharacterSize(window.getSize().x/35);
+    this->screen_resolution960x1200.setFillColor(sf::Color(255, 255, 255));
+    this->screen_resolution960x1200.setString("960x1200");
+    this->screen_resolution960x1200.setOutlineThickness(1);
+    this->screen_resolution960x1200.setOutlineColor(sf::Color(0, 0, 0));
+    this->screen_resolution960x1200.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3*2 - screen_resolution960x1200.getGlobalBounds().width/2, screen_resolution640x800.getPosition().y);
 
-    if(settings_tab[0] == 800)
+    if(settings_tab[0] == 640)
         {
             this->button800x600_true.setTexture(button_true);
             this->button1280x1024_true.setTexture(button_null);
             this->button1920x1080_true.setTexture(button_null);
         }
-    else if (settings_tab[0] == 1280)
+    else if (settings_tab[0] == 800)
         {
             this->button800x600_true.setTexture(button_null);
             this->button1280x1024_true.setTexture(button_true);
             this->button1920x1080_true.setTexture(button_null);
         }
-    else if (settings_tab[0] == 1920)
+    else if (settings_tab[0] == 960)
         {
             this->button800x600_true.setTexture(button_null);
             this->button1280x1024_true.setTexture(button_null);
@@ -128,58 +127,78 @@ void Option_page::settings_ini(sf::RenderWindow &window)
         }
 
     this->button800x600_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
-    this->button800x600_true.setPosition(screen_resolution800x600.getPosition().x - 5 - button800x600_true.getGlobalBounds().width, screen_resolution800x600.getPosition().y + button800x600_true.getGlobalBounds().height);
+    this->button800x600_true.setPosition(screen_resolution640x800.getPosition().x - 5 - button800x600_true.getGlobalBounds().width, screen_resolution640x800.getPosition().y + button800x600_true.getGlobalBounds().height);
 
 
     this->button1280x1024_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
-    this->button1280x1024_true.setPosition(screen_resolution1280x1024.getPosition().x - 5 - button1280x1024_true.getGlobalBounds().width, screen_resolution1280x1024.getPosition().y + button1280x1024_true.getGlobalBounds().height);
+    this->button1280x1024_true.setPosition(screen_resolution800x1000.getPosition().x - 5 - button1280x1024_true.getGlobalBounds().width, screen_resolution800x1000.getPosition().y + button1280x1024_true.getGlobalBounds().height);
 
 
     this->button1920x1080_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
-    this->button1920x1080_true.setPosition(screen_resolution1920x1080.getPosition().x - 5 - button1920x1080_true.getGlobalBounds().width, screen_resolution1920x1080.getPosition().y + button1920x1080_true.getGlobalBounds().height);
+    this->button1920x1080_true.setPosition(screen_resolution960x1200.getPosition().x - 5 - button1920x1080_true.getGlobalBounds().width, screen_resolution960x1200.getPosition().y + button1920x1080_true.getGlobalBounds().height);
 
 //---------------------------------------------------------------------------------SCREEN MODE-----------------------------------------------------------------------------
-    this->mode_screen.setFont(otama_font);
-    this->mode_screen.setCharacterSize(window.getSize().x/35 - 5);
-    this->mode_screen.setFillColor(sf::Color(255, 255, 255));
-    this->mode_screen.setString("Screen mode");
-    this->mode_screen.setOutlineThickness(2);
-    this->mode_screen.setOutlineColor(sf::Color(0, 0, 0));
-    this->mode_screen.setPosition(width_screen/2 - mode_screen.getGlobalBounds().width/2 + start_draw_x, line1.getPosition().y + 10);
+    this->game_mode.setFont(otama_font);
+    this->game_mode.setCharacterSize(window.getSize().x/35 - 5);
+    this->game_mode.setFillColor(sf::Color(255, 255, 255));
+    this->game_mode.setString("Game mode");
+    this->game_mode.setOutlineThickness(2);
+    this->game_mode.setOutlineColor(sf::Color(0, 0, 0));
+    this->game_mode.setPosition(width_screen/2 - game_mode.getGlobalBounds().width/2 + start_draw_x, line1.getPosition().y + 10);
 
-    this->full_option.setFont(otama_font);
-    this->full_option.setCharacterSize(window.getSize().x/35);
-    this->full_option.setFillColor(sf::Color(255, 255, 255));
-    this->full_option.setString("Full screen");
-    this->full_option.setOutlineThickness(1);
-    this->full_option.setOutlineColor(sf::Color(0, 0, 0));
-    this->full_option.setPosition(start_draw_x + (width_screen/2)/2 - full_option.getGlobalBounds().width/2, mode_screen.getPosition().y + window.getSize().y/60 + mode_screen.getGlobalBounds().height);
+    this->easy_mode.setFont(otama_font);
+    this->easy_mode.setCharacterSize(window.getSize().x/35);
+    this->easy_mode.setFillColor(sf::Color(255, 255, 255));
+    this->easy_mode.setString("Easy");
+    this->easy_mode.setOutlineThickness(1);
+    this->easy_mode.setOutlineColor(sf::Color(0, 0, 0));
+    this->easy_mode.setPosition(start_draw_x + (width_screen/3)/2 - easy_mode.getGlobalBounds().width/2, game_mode.getPosition().y + window.getSize().y/60 + game_mode.getGlobalBounds().height);
 
-    this->window_option.setFont(otama_font);
-    this->window_option.setCharacterSize(window.getSize().x/35);
-    this->window_option.setFillColor(sf::Color(255, 255, 255));
-    this->window_option.setString("Window mode");
-    this->window_option.setOutlineThickness(1);
-    this->window_option.setOutlineColor(sf::Color(0, 0, 0));
-    this->window_option.setPosition(start_draw_x + width_screen - (width_screen/2)/2 - window_option.getGlobalBounds().width/2, mode_screen.getPosition().y + window.getSize().y/60 + mode_screen.getGlobalBounds().height);
+    this->normal.setFont(otama_font);
+    this->normal.setCharacterSize(window.getSize().x/35);
+    this->normal.setFillColor(sf::Color(255, 255, 255));
+    this->normal.setString("Normal");
+    this->normal.setOutlineThickness(1);
+    this->normal.setOutlineColor(sf::Color(0, 0, 0));
+    this->normal.setPosition(start_draw_x + width_screen/3*2 - (width_screen/6) - normal.getGlobalBounds().width/2, game_mode.getPosition().y + window.getSize().y/60 + game_mode.getGlobalBounds().height);
+
+    this->hard_mode.setFont(otama_font);
+    this->hard_mode.setCharacterSize(window.getSize().x/35);
+    this->hard_mode.setFillColor(sf::Color(255, 255, 255));
+    this->hard_mode.setString("Hard");
+    this->hard_mode.setOutlineThickness(1);
+    this->hard_mode.setOutlineColor(sf::Color(0, 0, 0));
+    this->hard_mode.setPosition(start_draw_x + width_screen - (width_screen/3)/2 - hard_mode.getGlobalBounds().width/2, game_mode.getPosition().y + window.getSize().y/60 + game_mode.getGlobalBounds().height);
 
     if(settings_tab[2] == 1)
         {
-            this->mode_full.setTexture(button_true);
-            this->mode_window.setTexture(button_null);
+            this->easy_sprite.setTexture(button_true);
+            this->normal_sprite.setTexture(button_null);
+            this->hard_sprite.setTexture(button_null);
         }
+
     else if (settings_tab[2] == 2)
         {
-            this->mode_full.setTexture(button_null);
-            this->mode_window.setTexture(button_true);
+            this->easy_sprite.setTexture(button_null);
+            this->normal_sprite.setTexture(button_true);
+            this->hard_sprite.setTexture(button_null);
         }
 
-    this->mode_full.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
-    this->mode_full.setPosition(full_option.getPosition().x - 5 - mode_full.getGlobalBounds().width, full_option.getPosition().y + mode_full.getGlobalBounds().height);
+    else if (settings_tab[2] == 3)
+        {
+            this->easy_sprite.setTexture(button_null);
+            this->normal_sprite.setTexture(button_null);
+            this->hard_sprite.setTexture(button_true);
+        }
 
+    this->easy_sprite.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+    this->easy_sprite.setPosition(easy_mode.getPosition().x - 5 - easy_sprite.getGlobalBounds().width, easy_mode.getPosition().y + easy_sprite.getGlobalBounds().height);
 
-    this->mode_window.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
-    this->mode_window.setPosition(window_option.getPosition().x - 5 - mode_window.getGlobalBounds().width, window_option.getPosition().y + mode_window.getGlobalBounds().height);
+    this->normal_sprite.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+    this->normal_sprite.setPosition(normal.getPosition().x - 5 - normal_sprite.getGlobalBounds().width, normal.getPosition().y + normal_sprite.getGlobalBounds().height);
+
+    this->hard_sprite.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+    this->hard_sprite.setPosition(hard_mode.getPosition().x - 5 - hard_sprite.getGlobalBounds().width, hard_mode.getPosition().y + hard_sprite.getGlobalBounds().height);
 
 
 //---------------------------------------------------------------------------------HIGH SCORE OPTION-----------------------------------------------------------------------------
@@ -332,20 +351,22 @@ int Option_page::basic(sf::RenderWindow &window, sf::Vector2i mouse, int menu_op
     this->line3.setSize(sf::Vector2f(width_screen - 5, 2));
 
     this->screen_resolution.setCharacterSize(window.getSize().x/35 - 5);
-    this->screen_resolution800x600.setCharacterSize(window.getSize().x/35);
-    this->screen_resolution1280x1024.setCharacterSize(window.getSize().x/35);
-    this->screen_resolution1920x1080.setCharacterSize(window.getSize().x/35);
+    this->screen_resolution640x800.setCharacterSize(window.getSize().x/35);
+    this->screen_resolution800x1000.setCharacterSize(window.getSize().x/35);
+    this->screen_resolution960x1200.setCharacterSize(window.getSize().x/35);
 
     this->button800x600_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->button1280x1024_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
     this->button1920x1080_true.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
 
-    this->mode_screen.setCharacterSize(window.getSize().x/35 - 5);
-    this->full_option.setCharacterSize(window.getSize().x/35);
-    this->window_option.setCharacterSize(window.getSize().x/35);
+    this->game_mode.setCharacterSize(window.getSize().x/35 - 5);
+    this->easy_mode.setCharacterSize(window.getSize().x/35);
+    this->normal.setCharacterSize(window.getSize().x/35);
+    this->hard_mode.setCharacterSize(window.getSize().x/35);
 
-    this->mode_full.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
-    this->mode_window.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+    this->easy_sprite.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+    this->normal_sprite.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
+    this->hard_sprite.setScale(sf::Vector2f(0.0003 * window.getSize().x, 0.0003 * window.getSize().x));
 
     this->high_score.setCharacterSize(window.getSize().x/35 - 5);
     this->high_score_no_1.setCharacterSize(window.getSize().x/35);
@@ -372,13 +393,13 @@ int Option_page::basic(sf::RenderWindow &window, sf::Vector2i mouse, int menu_op
     this->line3.setOutlineThickness(1);
 
     this->screen_resolution.setOutlineThickness(2);
-    this->screen_resolution800x600.setOutlineThickness(1);
-    this->screen_resolution1280x1024.setOutlineThickness(1);
-    this->screen_resolution1920x1080.setOutlineThickness(1);
+    this->screen_resolution640x800.setOutlineThickness(1);
+    this->screen_resolution800x1000.setOutlineThickness(1);
+    this->screen_resolution960x1200.setOutlineThickness(1);
 
-    this->mode_screen.setOutlineThickness(2);
-    this->full_option.setOutlineThickness(1);
-    this->window_option.setOutlineThickness(1);
+    this->game_mode.setOutlineThickness(2);
+    this->easy_mode.setOutlineThickness(1);
+    this->hard_mode.setOutlineThickness(1);
 
     this->high_score.setOutlineThickness(2);
     this->high_score_no_1.setOutlineThickness(1);
@@ -406,6 +427,7 @@ int Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
               this->back_button.setScale(1.1, 1.1);
               this->back_button.setPosition(start_draw_x, end_draw_y - back_button.getGlobalBounds().height);
         }
+
     else
         {
               this->back_text.setPosition(back_button.getPosition().x + (back_button.getGlobalBounds().width/2) - (back_text.getGlobalBounds().width/2),
@@ -414,7 +436,6 @@ int Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
               this->back_button.setScale(1, 1);
               this->back_button.setPosition(start_draw_x, end_draw_y - back_button.getGlobalBounds().height);
         }
-
 
     if(mouse.x > save_button.getPosition().x  && mouse.x < save_button.getPosition().x + save_button.getGlobalBounds().width &&
             mouse.y > save_button.getPosition().y  && mouse.y < save_button.getPosition().y - 6 + save_button.getGlobalBounds().height)
@@ -425,6 +446,7 @@ int Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
               this->save_button.setScale(1.1, 1.1);
               this->save_button.setPosition(end_draw_x - save_button.getGlobalBounds().width, end_draw_y - save_button.getGlobalBounds().height);
         }
+
     else
         {
               this->save_text.setPosition(save_button.getPosition().x + (save_button.getGlobalBounds().width/2) - (save_text.getGlobalBounds().width/2),
@@ -433,8 +455,6 @@ int Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
               this->save_button.setScale(1, 1);
               this->save_button.setPosition(end_draw_x - save_button.getGlobalBounds().width, end_draw_y - save_button.getGlobalBounds().height);
         }
-
-
 
     if(mouse.x > back_button.getPosition().x  && mouse.x < back_button.getPosition().x + back_button.getGlobalBounds().width &&
             mouse.y > back_button.getPosition().y  && mouse.y < back_button.getPosition().y - 6 + back_button.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -449,17 +469,14 @@ int Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
             annoucment = save_setings.save_setings(window, settings_tab, &nice_font, position_nice_font_x, position_nice_font_y, annoucment);
         }
 
-
-
-
     if(mouse.x > button800x600_true.getPosition().x  && mouse.x < button800x600_true.getPosition().x + button800x600_true.getGlobalBounds().width &&
             mouse.y > button800x600_true.getPosition().y  && mouse.y < button800x600_true.getPosition().y + button800x600_true.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             this->button800x600_true.setTexture(button_true);
             this->button1280x1024_true.setTexture(button_null);
             this->button1920x1080_true.setTexture(button_null);
-            this->settings_tab[0] = 800;
-            this->settings_tab[1] = 600;
+            this->settings_tab[0] = 640;
+            this->settings_tab[1] = 800;
         }
 
     if(mouse.x > button1280x1024_true.getPosition().x  && mouse.x < button1280x1024_true.getPosition().x + button1280x1024_true.getGlobalBounds().width &&
@@ -468,8 +485,8 @@ int Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
             this->button800x600_true.setTexture(button_null);
             this->button1280x1024_true.setTexture(button_true);
             this->button1920x1080_true.setTexture(button_null);
-            this->settings_tab[0] = 1280;
-            this->settings_tab[1] = 1024;
+            this->settings_tab[0] = 800;
+            this->settings_tab[1] = 1000;
         }
 
     if(mouse.x > button1920x1080_true.getPosition().x  && mouse.x < button1920x1080_true.getPosition().x + button1920x1080_true.getGlobalBounds().width &&
@@ -478,24 +495,35 @@ int Option_page::system(sf::RenderWindow &window, sf::Vector2i mouse, int menu_o
             this->button800x600_true.setTexture(button_null);
             this->button1280x1024_true.setTexture(button_null);
             this->button1920x1080_true.setTexture(button_true);
-            this->settings_tab[0] = 1920;
-            this->settings_tab[1] = 1080;
+            this->settings_tab[0] = 960;
+            this->settings_tab[1] = 1200;
         }
 
-    if(mouse.x > mode_full.getPosition().x  && mouse.x < mode_full.getPosition().x + mode_full.getGlobalBounds().width &&
-            mouse.y > mode_full.getPosition().y  && mouse.y < mode_full.getPosition().y + mode_full.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if(mouse.x > easy_sprite.getPosition().x  && mouse.x < easy_sprite.getPosition().x + easy_sprite.getGlobalBounds().width &&
+            mouse.y > easy_sprite.getPosition().y  && mouse.y < easy_sprite.getPosition().y + easy_sprite.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
-            this->mode_full.setTexture(button_true);
-            this->mode_window.setTexture(button_null);
+            this->easy_sprite.setTexture(button_true);
+            this->normal_sprite.setTexture(button_null);
+            this->hard_sprite.setTexture(button_null);
             this->settings_tab[2] = 1;
         }
 
-    if(mouse.x > mode_window.getPosition().x  && mouse.x < mode_window.getPosition().x + mode_window.getGlobalBounds().width &&
-            mouse.y > mode_window.getPosition().y  && mouse.y < mode_window.getPosition().y + mode_window.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if(mouse.x > normal_sprite.getPosition().x  && mouse.x < normal_sprite.getPosition().x + normal_sprite.getGlobalBounds().width &&
+            mouse.y > normal_sprite.getPosition().y  && mouse.y < normal_sprite.getPosition().y + normal_sprite.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
-            this->mode_full.setTexture(button_null);
-            this->mode_window.setTexture(button_true);
+            this->easy_sprite.setTexture(button_null);
+            this->normal_sprite.setTexture(button_true);
+            this->hard_sprite.setTexture(button_null);
             this->settings_tab[2] = 2;
+        }
+
+    if(mouse.x > hard_sprite.getPosition().x  && mouse.x < hard_sprite.getPosition().x + hard_sprite.getGlobalBounds().width &&
+            mouse.y > hard_sprite.getPosition().y  && mouse.y < hard_sprite.getPosition().y + hard_sprite.getGlobalBounds().height && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            this->easy_sprite.setTexture(button_null);
+            this->normal_sprite.setTexture(button_null);
+            this->hard_sprite.setTexture(button_true);
+            this->settings_tab[2] = 3;
         }
 
     if(mouse.x > score_1.getPosition().x  && mouse.x < score_1.getPosition().x + score_1.getGlobalBounds().width &&
@@ -578,6 +606,7 @@ void Option_page::board_load(sf::RenderWindow &window, sf::Vector2i mouse, int m
                 board_part.setPosition(board_part.getPosition().x + board_part.getGlobalBounds().width, board_part.getPosition().y);
 
             }
+
         this->board_part.setPosition(start_draw_x + (width_screen/3)/2 + width_screen/3 - board_part.getGlobalBounds().width*5, board_part.getPosition().y);
 
         for(int i = 0; i < no_parts; i++)
@@ -617,7 +646,6 @@ void Option_page::board_load(sf::RenderWindow &window, sf::Vector2i mouse, int m
                     }
                 board_parts_red.push_back(board_part);
                 board_part.setPosition(board_part.getPosition().x + board_part.getGlobalBounds().width, board_part.getPosition().y);
-
             }
 }
 
@@ -683,7 +711,6 @@ void Option_page::background_animation(sf::RenderWindow &window, sf::Vector2i mo
 
                             blocks.push_back(block);
                             block.setPosition(block.getPosition().x + size_block, block.getPosition().y);
-
                         }
 
                     block.setPosition(start_draw_x, block.getPosition().y + size_block);
@@ -699,17 +726,18 @@ void Option_page::reset_object(sf::RenderWindow &window, sf::Vector2i mouse, int
     this->line2.setSize(sf::Vector2f(0, 0));
     this->line3.setSize(sf::Vector2f(0, 0));
     this->screen_resolution.setCharacterSize(0);
-    this->screen_resolution800x600.setCharacterSize(0);
-    this->screen_resolution1280x1024.setCharacterSize(0);
-    this->screen_resolution1920x1080.setCharacterSize(0);
+    this->screen_resolution640x800.setCharacterSize(0);
+    this->screen_resolution800x1000.setCharacterSize(0);
+    this->screen_resolution960x1200.setCharacterSize(0);
     this->button800x600_true.setScale(sf::Vector2f(0, 0));
     this->button1280x1024_true.setScale(sf::Vector2f(0, 0));
     this->button1920x1080_true.setScale(sf::Vector2f(0, 0));
-    this->mode_screen.setCharacterSize(0);
-    this->full_option.setCharacterSize(0);
-    this->window_option.setCharacterSize(0);
-    this->mode_full.setScale(sf::Vector2f(0, 0));
-    this->mode_window.setScale(sf::Vector2f(0, 0));
+    this->game_mode.setCharacterSize(0);
+    this->easy_mode.setCharacterSize(0);
+    this->normal.setCharacterSize(0);
+    this->hard_mode.setCharacterSize(0);
+    this->easy_sprite.setScale(sf::Vector2f(0, 0));
+    this->hard_sprite.setScale(sf::Vector2f(0, 0));
     this->high_score.setCharacterSize(0);
     this->high_score_no_1.setCharacterSize(0);
     this->high_score_no_3.setCharacterSize(0);
@@ -732,13 +760,14 @@ void Option_page::reset_object(sf::RenderWindow &window, sf::Vector2i mouse, int
     this->line3.setOutlineThickness(0);
 
     this->screen_resolution.setOutlineThickness(0);
-    this->screen_resolution800x600.setOutlineThickness(0);
-    this->screen_resolution1280x1024.setOutlineThickness(0);
-    this->screen_resolution1920x1080.setOutlineThickness(0);
+    this->screen_resolution640x800.setOutlineThickness(0);
+    this->screen_resolution800x1000.setOutlineThickness(0);
+    this->screen_resolution960x1200.setOutlineThickness(0);
 
-    this->mode_screen.setOutlineThickness(0);
-    this->full_option.setOutlineThickness(0);
-    this->window_option.setOutlineThickness(0);
+    this->game_mode.setOutlineThickness(0);
+    this->easy_mode.setOutlineThickness(0);
+    this->normal.setOutlineThickness(0);
+    this->hard_mode.setOutlineThickness(0);
 
     this->high_score.setOutlineThickness(0);
     this->high_score_no_1.setOutlineThickness(0);
@@ -764,7 +793,7 @@ void Option_page::draw_option_page(sf::RenderWindow &window)
         }
     }
     window.draw(screen_resolution);
-    window.draw(mode_screen);
+    window.draw(game_mode);
     window.draw(high_score);
     window.draw(color_board);
 
@@ -772,19 +801,21 @@ void Option_page::draw_option_page(sf::RenderWindow &window)
     window.draw(line2);
     window.draw(line3);
 
-    window.draw(screen_resolution800x600);
-    window.draw(screen_resolution1280x1024);
-    window.draw(screen_resolution1920x1080);
+    window.draw(screen_resolution640x800);
+    window.draw(screen_resolution800x1000);
+    window.draw(screen_resolution960x1200);
 
     window.draw(button800x600_true);
     window.draw(button1280x1024_true);
     window.draw(button1920x1080_true);
 
-    window.draw(full_option);
-    window.draw(window_option);
+    window.draw(easy_mode);
+    window.draw(normal);
+    window.draw(hard_mode);
 
-    window.draw(mode_full);
-    window.draw(mode_window);
+    window.draw(easy_sprite);
+    window.draw(normal_sprite);
+    window.draw(hard_sprite);
 
     window.draw(high_score_no_1);
     window.draw(high_score_no_3);

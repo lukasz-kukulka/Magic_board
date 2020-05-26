@@ -21,7 +21,6 @@ Text_ini::Text_ini(sf::RenderWindow &window, sf::Font *font, std::string string_
     this->string_points = string_points;
     this->text_point.setFont(*font);
     this->text_point.setCharacterSize(window.getSize().x/60);
-    //this->text_point.setStyle(sf::Text::Bold);
     this->text_point.setFillColor(sf::Color(255, 255, 255, 255));
     this->text_point.setOutlineColor(sf::Color(0, 0, 0, 255));
     this->text_point.setOutlineThickness(1);
@@ -58,6 +57,21 @@ void Text_ini::points_update(sf::RenderWindow &window, int points)
         }
 
     this->score.setString(string_points);
+}
+
+int Text_ini::posX(sf::RenderWindow &window)
+{
+    return score.getPosition().x;
+}
+
+void Text_ini::move_up(sf::RenderWindow &window)
+{
+    text.setPosition(text.getPosition().x, text.getPosition().y - text.getGlobalBounds().height);
+}
+
+int Text_ini::posY(sf::RenderWindow &window)
+{
+    return score.getPosition().y;
 }
 
 void Text_ini::draw_text(sf::RenderWindow &window)

@@ -120,63 +120,73 @@ void Save_load::load_score(sf::RenderWindow &window, sf::Font *font)
 
     while(getline(files, line))
         {
-            if (no_line==0)
+            if(load_board_lvl(window, 4) > 0)
+            {
+                if (no_line==0)
+                    {
+                        cell.push_back(Score(window, font, 1, 1, "1"));
+                        cell.push_back(Score(window, font, 2, 1, line));
+                    }
+
+                if (no_line==1)
+                    {
+                        cell.push_back(Score(window, font, 3, 1, line));
+                    }
+            }
+
+            if(load_board_lvl(window, 4) > 1)
                 {
-                    cell.push_back(Score(window, font, 1, 1, "1"));
-                    cell.push_back(Score(window, font, 2, 1, line));
+                    if (no_line==2)
+                        {
+                            cell.push_back(Score(window, font, 1, 2, "2"));
+                            cell.push_back(Score(window, font, 2, 2, line));
+                        }
+
+                    if (no_line==3)
+                        {
+                            cell.push_back(Score(window, font, 3, 2, line));
+                        }
+
+                    if (no_line==4)
+                        {
+                            cell.push_back(Score(window, font, 1, 3, "3"));
+                            cell.push_back(Score(window, font, 2, 3, line));
+                        }
+
+                    if (no_line==5)
+                        {
+                            cell.push_back(Score(window, font, 3, 3, line));
+                        }
                 }
 
-            if (no_line==1)
-                {
-                    cell.push_back(Score(window, font, 3, 1, line));
-                }
+            if(load_board_lvl(window, 4) > 2)
+            {
+                if (no_line==6)
+                    {
+                        cell.push_back(Score(window, font, 1, 4, "4"));
+                        cell.push_back(Score(window, font, 2, 4, line));
+                    }
+                if (no_line==7)
+                    {
+                        cell.push_back(Score(window, font, 3, 4, line));
+                    }
 
-            if (no_line==2)
-                {
-                    cell.push_back(Score(window, font, 1, 2, "2"));
-                    cell.push_back(Score(window, font, 2, 2, line));
-                }
+                if (no_line==8)
+                    {
+                        cell.push_back(Score(window, font, 1, 5, "5"));
+                        cell.push_back(Score(window, font, 2, 5, line));
+                    }
+                if (no_line==9)
+                    {
+                        cell.push_back(Score(window, font, 3, 5, line));
+                    }
+            }
 
-            if (no_line==3)
-                {
-                    cell.push_back(Score(window, font, 3, 2, line));
-                }
-
-            if (no_line==4)
-                {
-                    cell.push_back(Score(window, font, 1, 3, "3"));
-                    cell.push_back(Score(window, font, 2, 3, line));
-                }
-
-            if (no_line==5)
-                {
-                    cell.push_back(Score(window, font, 3, 3, line));
-                }
-
-            if (no_line==6)
-                {
-                    cell.push_back(Score(window, font, 1, 4, "4"));
-                    cell.push_back(Score(window, font, 2, 4, line));
-                }
-            if (no_line==7)
-                {
-                    cell.push_back(Score(window, font, 3, 4, line));
-                }
-
-            if (no_line==8)
-                {
-                    cell.push_back(Score(window, font, 1, 5, "5"));
-                    cell.push_back(Score(window, font, 2, 5, line));
-                }
-            if (no_line==9)
-                {
-                    cell.push_back(Score(window, font, 3, 5, line));
-                }
 
             no_line++;
         }
 
-        files.close();
+    files.close();
 }
 
 std::string Save_load::best_score(sf::RenderWindow &window)
@@ -200,16 +210,126 @@ std::string Save_load::best_score(sf::RenderWindow &window)
                 }
             no_line++;
         }
+
+    files.close();
 }
 
-void Save_load::save_score(sf::RenderWindow &window)
+void Save_load::save_score(sf::RenderWindow &window, std::string imie, int score)
 {
-//after game ready
+    std::fstream files;
+
+    files.open("score.txt", std::ios::out | std::ios::app);
+    files<<imie<<std::endl;
+    files<<score<<std::endl;
+
+    files.close();
+}
+
+int Save_load::load_board_lvl(sf::RenderWindow &window, int index)
+{
+    int temp;
+    int no_line = 1;
+    std::string line;
+    std::fstream files;
+    files.open("settings.ini", std::ios::in);
+
+    if(files.good() == false)
+        {
+            std::cout<<"File not exist"<<std::endl;
+            exit(0);
+        }
+
+    while(getline(files, line))
+        {
+            if(no_line == 3 && index == 3)
+                {
+                    temp = std::stoi(line);
+                    return temp;
+                }
+
+            if(no_line == 4 && index == 4)
+                {
+                    temp = std::stoi(line);
+                    return temp;
+                }
+
+            if(no_line == 5 && index == 5)
+                {
+                    temp = std::stoi(line);
+                    return temp;
+                }
+
+            no_line++;
+        }
+
+    files.close();
 }
 
 void Save_load::sort_score(sf::RenderWindow &window)
 {
-//after game ready
+    int temp_score;
+    std::string temp_name, score_string;
+    int no_line = 1;
+    std::string line;
+    std::fstream files;
+    files.open("score.txt", std::ios::in);
+
+    if(files.good() == false)
+        {
+            std::cout<<"File not exist"<<std::endl;
+            exit(0);
+        }
+
+    while(getline(files, line))
+        {
+            if(no_line % 2 == 1)
+                {
+                    name.push_back(line);
+                }
+
+            else if(no_line % 2 == 0)
+                {
+                    score.push_back(std::stoi(line));
+                }
+
+            no_line++;
+        }
+
+    files.close();
+
+    for(int i = 0; i < score.size() - 1; i++)
+        {
+            for(int j = 0; j < score.size() - 1; j++)
+                {
+                    if(score[j] < score[j+1])
+                        {
+                            temp_score = score[j];
+                            score[j] = score[j+1];
+                            score[j+1] = temp_score;
+
+                            temp_name = name[j];
+                            name[j] = name[j+1];
+                            name[j+1] = temp_name;
+                        }
+                }
+        }
+
+    files.open("score.txt", std::ios::out | std::ios::trunc);
+
+    for(int i = 0; i < 5; i++)
+        {
+            score_string = std::to_string(score[i]);
+            while(score_string.size() < 8)
+                {
+                    score_string = "0" + score_string;
+                }
+            files<<name[i]<<std::endl;
+            files<<score_string<<std::endl;
+        }
+
+    score.erase(score.begin(), score.end());
+    name.erase(name.begin(), name.end());
+    files.close();
 }
 
 void Save_load::draw_save_load(sf::RenderWindow &window)

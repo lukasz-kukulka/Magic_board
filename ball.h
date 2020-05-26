@@ -12,7 +12,6 @@ class Ball
 public:
 
     Ball(sf::RenderWindow &window, sf::Texture *texture);
-
     ~Ball();
 
     void draw_ball(sf::RenderWindow &window);
@@ -30,11 +29,11 @@ public:
     void main_ball_ad_pos(sf::RenderWindow &window, int pos_x, int pos_y);
     float main_ball_real_speed_x(sf::RenderWindow &window);
     float main_ball_real_speed_y(sf::RenderWindow &window);
+    void error_ball(sf::RenderWindow &window, int);
 
 private:
 
     sf::Sprite ball_main;
     float right_colision, left_colision, top_colision, colision_change_y, colision_change_x, radius_colision, real_speed_x, real_speed_y, radius;
-
 };
 #endif

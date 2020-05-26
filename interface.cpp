@@ -18,7 +18,6 @@ Interface::Interface(sf::RenderWindow &window)
     this->middle.loadFromFile("Textures/middle.png");
     this->middle_board.loadFromFile("Textures/middle-board.png");
 
-
     this->backgroud_inter.setTexture(backgroud);
 
     this->center_x = window.getSize().x/2;
@@ -67,6 +66,7 @@ Interface::Interface(sf::RenderWindow &window)
         {
             connect_board.push_back(Backgroung_game(window, &board_connect, i, 36, 90));
         }
+
     for(int i = 72; i <= window.getSize().y + 30; i = i + 12)
         {
             connect_board.push_back(Backgroung_game(window, &board_connect, 36, i, 0));
@@ -98,6 +98,7 @@ Interface::Interface(sf::RenderWindow &window)
         quads.push_back(Backgroung_game(&board_block_light, window.getSize().x/8*7 - 22, 0));
         quads.push_back(Backgroung_game(&board_block, window.getSize().x/8*3 - 22, 0));
         quads.push_back(Backgroung_game(&board_block, window.getSize().x/8*5 - 22, 0));
+
         if(check_size_index + 500 <= window.getSize().x)
             {
                 quads.push_back(Backgroung_game(&board_block, (window.getSize().x/8 - 94)/2 + 72, 0));
@@ -132,6 +133,7 @@ int Interface::global_Y_middle(sf::RenderWindow &window, int place)
 void Interface::draw_interface(sf::RenderWindow &window)
 {
     window.draw(backgroud_inter);
+
     for(int i = 0; i < connect_board.size(); i++)
         {
             connect_board[i].draw_backgroud_connector(window);

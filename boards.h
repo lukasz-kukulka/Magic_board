@@ -11,7 +11,6 @@ class Boards
 public:
 
      Boards(sf::RenderWindow &window, sf::Texture *texture, int, float, int);
-
      ~Boards();
 
     void draw_board(sf::RenderWindow &window);
@@ -31,9 +30,10 @@ public:
 
 
 private:
+
     sf::Sprite board_sprite;
     int size_board, set_position_x;
     float radius, change_move_speed_x, change_move_speed_y;
-
 };
+
 #endif

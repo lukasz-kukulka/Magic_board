@@ -2,6 +2,9 @@
 #define MENU_BUTTON_H
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
 
 class Menu_button
 {
@@ -20,22 +23,15 @@ public:
     int animation_button_off(sf::RenderWindow &window, sf::Vector2i mouse);
     int animation_button_on(sf::RenderWindow &window);
 
-
 private:
     sf::Font button_font;
-
     sf::Text text_button, button_text;
-
     sf::RectangleShape button_menu, button_shape;
-
     int start_position_x, start_position_y, r_color, g_color, b_color, t_color, outline_button_size, outline_text_size, text_size, how_many_button, menu_index;
-
     double scale_index_button, scale_index_text;
-
+    bool play_sound;
     sf::Clock clock;
-
     sf::Time time;
-
 };
 
 #endif

@@ -3,16 +3,19 @@
 
 Enemy::Enemy(sf::RenderWindow &window, sf::Texture *texture, int position_x, int position_y, int no_blocks, int how_many_columns, float scale_x, float scale_y, int HP_enemy, int level = 1)
 {
+    Save_load* difficulty = new Save_load;
     this->level = level;
     this->HP_enemy_MAX = HP_enemy;
     this->HP_enemy = HP_enemy;
     this->enemy_rec.setTexture(*texture);
     this->enemy_rec.setScale(scale_x, scale_y);
     this->enemy_rec.setPosition(position_x + (enemy_rec.getGlobalBounds().width * no_blocks), position_y + (enemy_rec.getGlobalBounds().height * how_many_columns));
-    this->random_bonus = ( std::rand() % 100 * level ) + 1;
-    this->random_punish = ( std::rand() % 1000 / level ) + 1000;
+    this->random_bonus = ( std::rand() % (20 * difficulty->load_board_lvl(window, 3)) * level ) + 1;
+    this->random_punish = ( std::rand() % 300 / level ) + 1000;
     this->enemy_damage.setScale(scale_x, scale_y);
     this->enemy_damage.setPosition(enemy_rec.getPosition().x, enemy_rec.getPosition().y);
+    delete difficulty;
+    difficulty = 0;
 }
 
 Enemy::~Enemy(){}

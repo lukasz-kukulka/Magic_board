@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
+#include "save_load.h"
 
 
 class Enemy
@@ -12,7 +13,6 @@ class Enemy
 public:
 
     Enemy(sf::RenderWindow &window, sf::Texture *texture, int, int, int, int, float, float, int, int);
-
     ~Enemy();
 
     void draw_enemy_main(sf::RenderWindow &window);
@@ -26,11 +26,11 @@ public:
     int enemy_punish(sf::RenderWindow &window);
     void enemy_update(sf::RenderWindow &window, sf::Texture *stage1, sf::Texture *stage2, sf::Texture *stage3, sf::Texture *stage4);
 
-
 private:
+
     sf::Sprite enemy_rec, enemy_damage;
     int HP_enemy, HP_enemy_MAX, random_punish, random_bonus, level;
     float scale_x, scale_y;
-
 };
+
 #endif

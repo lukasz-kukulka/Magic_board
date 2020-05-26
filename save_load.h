@@ -11,27 +11,28 @@ class Save_load
 
 public:
 
-Save_load(int, int, sf::Font *font);
-Save_load();
- ~Save_load();
+    Save_load(int, int, sf::Font *font);
+    Save_load();
+     ~Save_load();
 
-int load_setings(int);
-int save_setings(sf::RenderWindow &window, int *tab, sf::Font *font, int, int, int);
-void draw_save_load(sf::RenderWindow &window);
-void save_score(sf::RenderWindow &window);
-void load_score(sf::RenderWindow &window, sf::Font *font);
-void draw_score(sf::RenderWindow &window);
-void sort_score(sf::RenderWindow &window);
-std::string best_score(sf::RenderWindow &window);
+    int load_setings(int);
+    int save_setings(sf::RenderWindow &window, int *tab, sf::Font *font, int, int, int);
+    void draw_save_load(sf::RenderWindow &window);
+    void save_score(sf::RenderWindow &window, std::string, int);
+    void load_score(sf::RenderWindow &window, sf::Font *font);
+    void draw_score(sf::RenderWindow &window);
+    void sort_score(sf::RenderWindow &window);
+    std::string best_score(sf::RenderWindow &window);
+    int load_board_lvl(sf::RenderWindow &window, int);
 
 private:
 
-sf::Text save_text;
-int settings_to_file[5], pozX, pozY;
-
-std::vector<Score>cell;
-
-
+    sf::Text save_text;
+    int settings_to_file[5], pozX, pozY;
+    std::vector<Score>cell;
+    std::vector<std::string>name;
+    std::vector<int>score;
 };
+
 #endif
 

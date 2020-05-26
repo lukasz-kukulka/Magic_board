@@ -18,6 +18,7 @@ void Lifes::life_change(sf::RenderWindow &window, bool life_yes_no)
         {
             this->life_sprite.setScale(window.getSize().x/1600.0, window.getSize().x/1600.0);
         }
+
     else
         {
             this->life_sprite.setScale(0, 0);
