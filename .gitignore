@@ -31,8 +31,12 @@
 *.out
 *.app
 
+#Files
+Magic_board.depend
+Magic_board.layout
+
 #Folders
 obj/
 SFML/
 bin/
-Fonts/
+
